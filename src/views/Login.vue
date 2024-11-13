@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:24
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-12 22:25:43
+ * @LastEditTime: 2024-11-13 15:53:26
  * @FilePath: /hrsass-admin/src/views/Login.vue
  * @Description: 
  * 
@@ -17,9 +17,9 @@
         :model="formData"
         status-icon
         :rules="rules"
-        label-width="40px"
+        label-width="100px"
       >
-      <el-form-item label="账号" prop="loginId">
+        <el-form-item label="账号" prop="loginId">
           <el-input v-model="formData.loginId" />
         </el-form-item>
         <el-form-item label="密码" prop="loginPwd">
@@ -32,9 +32,9 @@
 
         <el-form-item>
           <el-button type="primary" @click="submitForm(ruleFormRef)">
-            Submit
+            提交
           </el-button>
-          <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
+          <el-button @click="resetForm(ruleFormRef)">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -48,36 +48,14 @@ import type { FormInstance, FormRules } from 'element-plus'
 
 const ruleFormRef = ref<FormInstance>()
 
-
-const validatePass = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password'))
-  } else {
-    if (ruleForm.checkPass !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('checkPass')
-    }
-    callback()
-  }
-}
-const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password again'))
-  } else if (value !== ruleForm.pass) {
-    callback(new Error("Two inputs don't match!"))
-  } else {
-    callback()
-  }
-}
-
 const formData = reactive({
   loginId: '',
   loginPwd: '',
 })
 
 const rules = reactive<FormRules<typeof ruleForm>>({
-  loginId: [{ validator: validatePass, trigger: 'blur' }],
-  loginPwd: [{ validator: validatePass2, trigger: 'blur' }],
+  loginId: [{ trigger: 'blur', required: true, message: '请输入账号' }],
+  loginPwd: [{ trigger: 'blur', required: true, message: '请输入密码' }],
 })
 
 const submitForm = (formEl: FormInstance | undefined) => {
@@ -101,7 +79,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 .login {
   width: 100vw;
   height: 100vh;
-  background-color: linear-gradient(to bottom, #142334, #6894c7);
+  background: linear-gradient(to bottom, #142334, #6894c7);
   display: flex;
   justify-content: center;
   align-items: center;

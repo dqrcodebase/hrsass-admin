@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 22:02:59
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-12 22:04:38
+ * @LastEditTime: 2024-11-13 14:29:02
  * @FilePath: /hrsass-admin/src/router/index.ts
  * @Description: 
  * 
@@ -21,7 +21,7 @@ const router = createRouter({
       redirect: '/'
     },
     {
-      path: 'index',
+      path: '/index',
       component: () => import('../views/Index.vue')
     }
   ]
