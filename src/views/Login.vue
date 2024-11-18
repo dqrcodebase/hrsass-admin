@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:24
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-13 15:53:26
+ * @LastEditTime: 2024-11-18 21:34:47
  * @FilePath: /hrsass-admin/src/views/Login.vue
  * @Description: 
  * 
@@ -45,7 +45,10 @@
 import { reactive, ref } from 'vue'
 //  导入element-plus的类型
 import type { FormInstance, FormRules } from 'element-plus'
+import {$Login} from '../api/admin.ts'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
 
 const formData = reactive({
@@ -60,9 +63,13 @@ const rules = reactive<FormRules<typeof ruleForm>>({
 
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate((valid) => {
+  formEl.validate(async (valid) => {
+    console.log("🚀 ~ formEl.validate ~ valid:", valid)
     if (valid) {
-      console.log('submit!')
+      let res:boolean = await $Login(formData)
+      if(res) {
+        router.push('/index')
+      }
     } else {
       console.log('error submit!')
     }
