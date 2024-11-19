@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:24
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-18 21:34:47
+ * @LastEditTime: 2024-11-19 22:45:48
  * @FilePath: /hrsass-admin/src/views/Login.vue
  * @Description: 
  * 
@@ -45,8 +45,9 @@
 import { reactive, ref } from 'vue'
 //  导入element-plus的类型
 import type { FormInstance, FormRules } from 'element-plus'
-import {$Login} from '../api/admin.ts'
+import {$Login,$getOne} from '../api/admin.ts'
 import { useRouter } from 'vue-router'
+import useUser from '../store/useUser.ts'
 
 const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
@@ -68,6 +69,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
     if (valid) {
       let res:boolean = await $Login(formData)
       if(res) {
+        let user = await $getOne({loginId:formData.loginId})
+        useUser.setUser(user)
         router.push('/index')
       }
     } else {

@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-18 20:21:49
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-18 21:34:50
+ * @LastEditTime: 2024-11-19 22:41:06
  * @FilePath: /hrsass-admin/src/api/admin.ts
  * @Description: 
  * 
@@ -31,3 +31,7 @@ export const $Login = async (params: object) => {
     return false
   }
 };
+
+export const $getOne = async (params: object) => {
+  let res = await $get('Admin/GetOne', params)
+}
