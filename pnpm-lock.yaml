@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@element-plus/icons-vue':
+    specifier: ^2.3.1
+    version: 2.3.1(vue@3.5.12)
   axios:
     specifier: ^1.7.7
     version: 1.7.7
@@ -14,6 +17,12 @@ dependencies:
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
+  md5js:
+    specifier: ^1.0.7
+    version: 1.0.7
+  nprogress:
+    specifier: ^0.2.0
+    version: 0.2.0
   pinia:
     specifier: ^2.2.6
     version: 2.2.6(typescript@5.6.3)(vue@3.5.12)
@@ -1005,6 +1014,10 @@ packages:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  /md5js@1.0.7:
+    resolution: {integrity: sha512-97fZ6+8JijezAk/n37Lnswo4aJ67utCeCXlIsDid3uZ/khIeof0hWpIYeSvf0kiyqB0i9XfQvOyZPuBSR7g2Ng==}
+    dev: false
+
   /memoize-one@6.0.0:
     resolution: {integrity: sha1-slkbhx7YKUiu5HJ9xqvO7qyMEEU=}
     dev: false
@@ -1059,6 +1072,10 @@ packages:
 
   /normalize-wheel-es@1.2.0:
     resolution: {integrity: sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw==}
+    dev: false
+
+  /nprogress@0.2.0:
+    resolution: {integrity: sha1-y480xTIT2JVyP8urkH6UIq28r7E=}
     dev: false
 
   /path-browserify@1.0.1:

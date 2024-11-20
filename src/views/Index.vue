@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:30
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-19 22:45:09
+ * @LastEditTime: 2024-11-20 09:04:08
  * @FilePath: /hrsass-admin/src/views/Index.vue
  * @Description: 
  * 
@@ -85,7 +85,7 @@
 import useUser from '../store/useUser.ts'
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router'
-import {ChatDotRound,House,location,Message,User} from '@element-plus/icons'
+import {ChatDotRound,House,Location,Message,User} from '@element-plus/icons-vue'
 let userStore = useUser() 
 let router = useRouter()
 
