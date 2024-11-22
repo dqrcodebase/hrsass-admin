@@ -1,9 +1,9 @@
 /*
  * @Author: dqr
  * @Date: 2024-11-12 22:02:59
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-19 22:33:15
- * @FilePath: /hrsass-admin/src/router/index.ts
+ * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
+ * @LastEditTime: 2024-11-21 22:15:09
+ * @FilePath: /hrsass-admin/view/src/router/index.ts
  * @Description: 
  * 
  */
@@ -24,7 +24,14 @@ const router = createRouter({
     },
     {
       path: '/index',
-      component: () => import('../views/Index.vue')
+      component: () => import('../views/Index.vue'),
+      children: [
+        {
+          path: '',
+          meta: {title: '首页'},
+          component: () => import('../views/Home.vue')
+        }
+      ]
     }
   ]
 });

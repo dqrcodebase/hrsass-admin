@@ -1,9 +1,9 @@
 /*
  * @Author: dqr
  * @Date: 2024-11-09 16:58:11
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-19 22:35:51
- * @FilePath: /hrsass-admin/src/main.ts
+ * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
+ * @LastEditTime: 2024-11-21 22:00:25
+ * @FilePath: /hrsass-admin/view/src/main.ts
  * @Description: 
  * 
  */

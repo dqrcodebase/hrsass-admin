@@ -42,12 +42,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref,onMounted } from 'vue'
 //  导入element-plus的类型
 import type { FormInstance, FormRules } from 'element-plus'
 import {$Login,$getOne} from '../api/admin.ts'
 import { useRouter } from 'vue-router'
-import useUser from '../store/useUser.ts'
+import userStore from '../store/useUserStore.ts'
 
 const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
@@ -70,7 +70,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
       let res:boolean = await $Login(formData)
       if(res) {
         let user = await $getOne({loginId:formData.loginId})
-        useUser.setUser(user)
+        userStore.setUser(user)
+        sessionStorage.setItem('user',JSON.stringify(user))
         router.push('/index')
       }
     } else {
@@ -83,6 +84,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.resetFields()
 }
+
 </script>
 
 <style scoped lang="scss">

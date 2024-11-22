@@ -19,6 +19,10 @@ export default defineStore({
   actions: {
     setUser(user:object) {
       this.user = user;
-    }
-  }
+    },
+    clearUser() {
+      sessionStorage.clear();
+      this.user = { loginId: '' };
+    },
+  },
 })

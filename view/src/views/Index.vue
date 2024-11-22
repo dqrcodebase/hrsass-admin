@@ -1,9 +1,9 @@
 <!--
  * @Author: dqr
  * @Date: 2024-11-12 21:54:30
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-20 09:04:08
- * @FilePath: /hrsass-admin/src/views/Index.vue
+ * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
+ * @LastEditTime: 2024-11-21 22:14:02
+ * @FilePath: /hrsass-admin/view/src/views/Index.vue
  * @Description: 
  * 
 -->
@@ -53,7 +53,7 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <el-menu-item index="1">
+          <el-menu-item index="/index">
             <el-icon><House /></el-icon>
             首页</el-menu-item
           >
@@ -72,7 +72,7 @@
               管理员</template>
             <el-menu-item index="2-1">个人中心</el-menu-item>
             <el-menu-item index="2-2">修改密码</el-menu-item>
-            <el-menu-item index="2-3">退出系统</el-menu-item>
+            <el-menu-item index="2-3" @click="exit">退出系统</el-menu-item>
           </el-sub-menu>
         </el-menu>
       </div>
@@ -82,10 +82,11 @@
 </template>
 
 <script setup lang="ts">
-import useUser from '../store/useUser.ts'
+import useUser from '../store/useUserStore.ts'
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router'
 import {ChatDotRound,House,Location,Message,User} from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 let userStore = useUser() 
 let router = useRouter()
 
@@ -94,7 +95,29 @@ onMounted(() => {
     router.push('/')
   }
 })
+onMounted(() => {
+  if(!userStore.user.loginId ) {
+    router.push('/')
+  }
+})
+let exit = () => {
+  ElMessageBox.confirm(
+    'proxy will permanently delete the file. Continue?',
+    'Warning',
+    {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+      userStore.clearUser()
+  router.push('/')
+    })
+    .catch(() => {
+    })
 
+}
 function handleOpen(key: string, keyPath: string) {
   console.log(key, keyPath)
 }

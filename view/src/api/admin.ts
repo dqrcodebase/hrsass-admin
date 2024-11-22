@@ -34,4 +34,6 @@ export const $Login = async (params: object) => {
 
 export const $getOne = async (params: object) => {
   let res = await $get('Admin/GetOne', params)
+  sessionStorage.setItem('token',token)
+  return res
 }
