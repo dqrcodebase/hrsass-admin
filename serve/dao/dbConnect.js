@@ -17,12 +17,5 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   logging: false
 });
 
-// 测试连接
-(async function() {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-})()
+// 向外暴露数据库连接
+module.exports = sequelize;

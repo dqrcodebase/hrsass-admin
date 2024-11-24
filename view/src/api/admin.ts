@@ -2,27 +2,34 @@
  * @Author: dqr
  * @Date: 2024-11-18 20:21:49
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-19 22:41:06
- * @FilePath: /hrsass-admin/src/api/admin.ts
+ * @LastEditTime: 2024-11-24 22:12:58
+ * @FilePath: /hrsass-admin/view/src/api/admin.ts
  * @Description: 
  * 
  */
 import { $post } from "../utils/request";
-import {md5} from 'md5js'
+import { md5 } from 'md5js'
 import { ElNotification } from 'element-plus'
+import { LoginParams } from './model/adminModel'
 
-export const $Login = async (params: object) => {
-  params.loginPwd = md5(md5(params.loginPwd,32).split('').reverse().json(''),32)
-  let {success,token} = await $post('Admin/login', params)
-  if(success){
+enum Api {
+  login = '/admin/login'
+}
+
+
+export async function loginApi (params: LoginParams) {
+  // 对密码进行加密
+  params.loginPwd = md5(params.loginPwd, 32)
+  let { success, token } = await $post(Api.login, params)
+  if (success) {
     ElNotification({
       title: '成功',
       message: success,
       type: 'success'
     })
-    sessionStorage.setItem('token',token)
+    sessionStorage.setItem('token', token)
     return true
-  }else {
+  } else {
     ElNotification({
       title: '通知',
       message: success,
@@ -34,6 +41,6 @@ export const $Login = async (params: object) => {
 
 export const $getOne = async (params: object) => {
   let res = await $get('Admin/GetOne', params)
-  sessionStorage.setItem('token',token)
+  sessionStorage.setItem('token', token)
   return res
 }

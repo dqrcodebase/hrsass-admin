@@ -2,8 +2,8 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:24
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-19 22:45:48
- * @FilePath: /hrsass-admin/src/views/Login.vue
+ * @LastEditTime: 2024-11-24 21:44:15
+ * @FilePath: /hrsass-admin/view/src/views/Login.vue
  * @Description: 
  * 
 -->
@@ -45,7 +45,7 @@
 import { reactive, ref,onMounted } from 'vue'
 //  导入element-plus的类型
 import type { FormInstance, FormRules } from 'element-plus'
-import {$Login,$getOne} from '../api/admin.ts'
+import {loginApi,$getOne} from '../api/admin.ts'
 import { useRouter } from 'vue-router'
 import userStore from '../store/useUserStore.ts'
 
@@ -67,7 +67,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate(async (valid) => {
     console.log("🚀 ~ formEl.validate ~ valid:", valid)
     if (valid) {
-      let res:boolean = await $Login(formData)
+      let res:boolean = await loginApi(formData)
       if(res) {
         let user = await $getOne({loginId:formData.loginId})
         userStore.setUser(user)

@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 15:04:21
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-24 16:33:38
+ * @LastEditTime: 2024-11-24 21:56:54
  * @FilePath: /hrsass-admin/serve/app.js
  * @Description: 
  * 
@@ -15,13 +15,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 // 引入路由
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const adminRouter = require('./routes/admin');
 
 // 默认读取项目根目录下的.env文件
 require('dotenv').config();
 // 引入数据库连接
-require('./dao/dbConnect');
+require('./dao/db');
 
 
 // 创建服务器实例
@@ -35,8 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 使用路由中间件
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

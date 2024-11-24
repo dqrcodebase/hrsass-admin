@@ -2,8 +2,8 @@
  * @Author: dqr
  * @Date: 2024-11-18 20:15:48
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-18 21:30:18
- * @FilePath: /hrsass-admin/src/utils/request.ts
+ * @LastEditTime: 2024-11-24 21:51:21
+ * @FilePath: /hrsass-admin/view/src/utils/request.ts
  * @Description: 
  * 
  */
@@ -17,9 +17,10 @@ const  instance = axion.create({
 })
 
 instance.interceptors.request.use(function (config) {
-  config.headers.common['token'] = sessionStorage.getItem('token')
+  config.headers['token'] = sessionStorage.getItem('token')
   return config;
 },function (error) {
+  console.log("🚀 ~ error:", error)
   return Promise.reject(error);
 })
 

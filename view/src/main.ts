@@ -1,8 +1,8 @@
 /*
  * @Author: dqr
  * @Date: 2024-11-09 16:58:11
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2024-11-21 22:00:25
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2024-11-24 21:26:05
  * @FilePath: /hrsass-admin/view/src/main.ts
  * @Description: 
  * 
@@ -16,4 +16,4 @@ import 'element-plus/dist/index.css'
 
 import router from './router'
 import {createPinia} from 'pinia'
-createApp(App).use(router).use(ElementPlus).use(createPinia).mount('#app')
+createApp(App).use(router).use(ElementPlus).use(createPinia()).mount('#app')
