@@ -12,6 +12,15 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // 配置路径别名
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@api': '/src/api',
+      '@assets': '/src/assets',
+      '@components': '/src/components',
+    }
+  },
   plugins: [vue()],
   // 代理
   server: {

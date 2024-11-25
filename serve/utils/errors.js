@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 16:11:44
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-24 16:17:42
+ * @LastEditTime: 2024-11-25 11:20:51
  * @FilePath: /hrsass-admin/serve/utils/errors.js
  * @Description: 
  * 
@@ -54,14 +54,14 @@ exports.ValidationError = class extends ServiceError {
 // 无资源错误
 exports.NotFoundError = class extends ServiceError {
   constructor() {
-    super('not found', 406);
+    super('无资源', 406);
   }
 }
 
 // 未知错误
 exports.UnknownError = class extends ServiceError {
   constructor() {
-    super('server internal error', 500);
+    super('未知错误', 500);
   }
 }
 

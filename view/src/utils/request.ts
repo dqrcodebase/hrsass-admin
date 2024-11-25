@@ -2,16 +2,16 @@
  * @Author: dqr
  * @Date: 2024-11-18 20:15:48
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-24 21:51:21
+ * @LastEditTime: 2024-11-25 14:41:05
  * @FilePath: /hrsass-admin/view/src/utils/request.ts
  * @Description: 
  * 
  */
-import axion from 'axios'
-import { baseURL } from '../config/baseURL'
+import axios from 'axios'
 
-const  instance = axion.create({
-  baseURL: baseURL,
+
+const  instance = axios.create({
+  baseURL: import.meta.env.VUE_APP_BASE_API,
   timeout: 30000,
   headers: {'X-Custom-Header': 'foobar'}
 })
