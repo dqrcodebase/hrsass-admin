@@ -1,8 +1,8 @@
 /*
  * @Author: dqr
  * @Date: 2024-11-12 22:02:59
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2024-11-21 22:15:09
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2024-11-26 14:57:18
  * @FilePath: /hrsass-admin/view/src/router/index.ts
  * @Description: 
  * 
@@ -43,8 +43,8 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {  
-  if(to.mate && to.meta.title) {
-    document.title = to.meta.title;
+  if(to.meta && to.meta.title) {
+    document.title = to.meta.title as string;
   }
 })
 

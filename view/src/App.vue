@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import useStore from './store/useUserStore.ts'
+import useStore from './store/modules/user.js'
 const userStore = useStore()
 if(sessionStorage.getItem('user')){
   let user = JSON.parse(sessionStorage.getItem('user') as string)

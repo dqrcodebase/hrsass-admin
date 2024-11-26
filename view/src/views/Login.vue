@@ -47,7 +47,7 @@ import { reactive, ref,onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import {loginApi,$getOne} from '../api/admin.ts'
 import { useRouter } from 'vue-router'
-import userStore from '../store/useUserStore.ts'
+import userStore from '../store/modules/user.js'
 
 const router = useRouter()
 const ruleFormRef = ref<FormInstance>()

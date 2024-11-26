@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import useUser from '../store/useUserStore.ts'
+import useUser from '../store/modules/user.js'
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router'
 import {ChatDotRound,House,Location,Message,User} from '@element-plus/icons-vue'
