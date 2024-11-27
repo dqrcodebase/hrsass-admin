@@ -10,9 +10,31 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET home page. */
-router.post('/login', function(req, res, next) {
-  console.log("🚀 ~ router.get ~ req:", req.body)
+const {loginService} = require('../service/adminService');
+const {formatResponse, analysisToken} = require('../utils/tool');
+
+// 登录接口
+router.post('/login', async function(req, res, next) {
+  // 首先应该有验证码验证
+  const result = await loginService(req.body);
+  if(result.token) {
+    res.setHeader('Authorization', result.token);
+  }
+  res.send(formatResponse(200, 'success', result));
+
+});
+// 恢复登陆状态
+router.get('/whoami', async function(req, res, next) {
+  // 从请求头中获取token
+  const token = analysisToken(req.get('Authorization'));
+  console.log("🚀 ~ router.get ~ token:", token)
+  // 解析token,还原成用户信息
+  res.send(formatResponse(200, '', {
+    id: token.id,
+    loginId: token.loginId,
+    name: token.name
+  }));
+  
 });
 
 module.exports = router;

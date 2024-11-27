@@ -2,29 +2,31 @@
  * @Author: dqr
  * @Date: 2024-11-24 15:04:21
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-24 21:56:54
+ * @LastEditTime: 2024-11-27 22:46:27
  * @FilePath: /hrsass-admin/serve/app.js
  * @Description: 
  * 
  */
 // 引包
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const  createError = require('http-errors');
+const  express = require('express');
+const  path = require('path');
+const  cookieParser = require('cookie-parser');
+const  logger = require('morgan');
+const expressJwt = require('express-jwt');
+const md5 = require('md5');
+const {ForbiddenError} = require('./utils/errors');
 
-// 引入路由
-const adminRouter = require('./routes/admin');
 
 // 默认读取项目根目录下的.env文件
 require('dotenv').config();
 // 引入数据库连接
 require('./dao/db');
-
+// 引入路由
+const adminRouter = require('./routes/admin');
 
 // 创建服务器实例
-var app = express();
+const  app = express();
 
 
 app.use(logger('dev'));
@@ -33,6 +35,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 配置验证token的中间件
+app.use(expressJwt({
+  secret: md5(process.env.JWT_SECRET), // 加密密钥
+  algorithms: ['HS256'] // 新版的express-jwt需要指定加密算法
+}).unless({
+  path: [{
+    url: '/api/admin/login',
+    methods: ['POST']
+  }] // 不需要验证token的接口
+}))
 // 使用路由中间件
 app.use('/api/admin', adminRouter);
 
@@ -44,13 +56,11 @@ app.use(function(req, res, next) {
 // 错误处理,一旦发生了错误,就会调用这个中间件
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  console.log("🚀 ~ app.use ~ err:", err)
+  if (err.name === 'UnauthorizedError') {
+    // 说明token验证失败
+    res.send(new ForbiddenError('未登录,获取token过期'));
+  }
 });
 
 module.exports = app;
