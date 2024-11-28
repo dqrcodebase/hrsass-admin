@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 15:04:21
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-27 22:46:27
+ * @LastEditTime: 2024-11-28 10:03:15
  * @FilePath: /hrsass-admin/serve/app.js
  * @Description: 
  * 
@@ -13,7 +13,8 @@ const  express = require('express');
 const  path = require('path');
 const  cookieParser = require('cookie-parser');
 const  logger = require('morgan');
-const expressJwt = require('express-jwt');
+const {expressjwt} = require('express-jwt');
+console.log("🚀 ~ expressJwt:", expressjwt)
 const md5 = require('md5');
 const {ForbiddenError} = require('./utils/errors');
 
@@ -36,7 +37,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 配置验证token的中间件
-app.use(expressJwt({
+app.use(expressjwt({
   secret: md5(process.env.JWT_SECRET), // 加密密钥
   algorithms: ['HS256'] // 新版的express-jwt需要指定加密算法
 }).unless({

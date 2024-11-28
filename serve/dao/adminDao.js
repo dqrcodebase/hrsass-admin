@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-27 22:01:09
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-27 22:05:39
+ * @LastEditTime: 2024-11-28 10:19:43
  * @FilePath: /hrsass-admin/serve/dao/adminDao.js
  * @Description: 
  * 
@@ -19,5 +19,5 @@ module.exports.loginDao = async function (loginInfo) {
       loginPwd: loginInfo.loginPwd
     }
   })
- console.log("🚀 ~ result:", result)
+  return result
 }

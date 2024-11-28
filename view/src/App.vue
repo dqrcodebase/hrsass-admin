@@ -1,22 +1,26 @@
 <!--
  * @Author: dqr
  * @Date: 2024-11-09 16:58:11
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2024-11-21 22:01:58
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2024-11-28 15:28:49
  * @FilePath: /hrsass-admin/view/src/App.vue
  * @Description: 
  * 
 -->
 <template>
-  <router-view></router-view> 
+  <div>
+    <router-view></router-view> 
+  </div>
 </template>
 
 <script lang="ts" setup>
-import useStore from './store/modules/user.js'
-const userStore = useStore()
+import {useUserStore} from '@/store/modules/user'
+const userStore = useUserStore()
 if(sessionStorage.getItem('user')){
   let user = JSON.parse(sessionStorage.getItem('user') as string)
   userStore.setUser(user)
 }
+
+
 
 </script>

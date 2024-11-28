@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:24
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-24 21:44:15
+ * @LastEditTime: 2024-11-28 16:17:57
  * @FilePath: /hrsass-admin/view/src/views/Login.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 <template>
   <div class="login">
     <div class="box">
-      <h2>人员管理平台</h2>
+      <h2>百望云酒店管理</h2>
       <el-form
         ref="ruleFormRef"
         style="max-width: 600px"
@@ -42,22 +42,24 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref,onMounted } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 //  导入element-plus的类型
 import type { FormInstance, FormRules } from 'element-plus'
-import {loginApi,$getOne} from '../api/admin.ts'
+import { loginApi, getUserInfoApi } from '@/api/admin'
 import { useRouter } from 'vue-router'
-import userStore from '../store/modules/user.js'
+import {useUserStore} from '@/store/modules/user'
+import {LoginParams} from '@/api/model/adminModel'
+const userStore = useUserStore()
 
 const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
 
-const formData = reactive({
-  loginId: '',
-  loginPwd: '',
+const formData = reactive<LoginParams>({
+  loginId: 'admin',
+  loginPwd: '123456',
 })
 
-const rules = reactive<FormRules<typeof ruleForm>>({
+const rules = reactive<FormRules<LoginParams>>({
   loginId: [{ trigger: 'blur', required: true, message: '请输入账号' }],
   loginPwd: [{ trigger: 'blur', required: true, message: '请输入密码' }],
 })
@@ -65,13 +67,13 @@ const rules = reactive<FormRules<typeof ruleForm>>({
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(async (valid) => {
-    console.log("🚀 ~ formEl.validate ~ valid:", valid)
+    console.log('🚀 ~ formEl.validate ~ valid:', valid)
     if (valid) {
-      let res:boolean = await loginApi(formData)
-      if(res) {
-        let user = await $getOne({loginId:formData.loginId})
+      let res: boolean = await userStore.login(formData)
+      if (res) {
+        let user = await getUserInfoApi()
         userStore.setUser(user)
-        sessionStorage.setItem('user',JSON.stringify(user))
+        sessionStorage.setItem('user', JSON.stringify(user))
         router.push('/index')
       }
     } else {
@@ -84,7 +86,6 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.resetFields()
 }
-
 </script>
 
 <style scoped lang="scss">

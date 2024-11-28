@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 21:07:20
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-24 21:15:47
+ * @LastEditTime: 2024-11-28 10:27:25
  * @FilePath: /hrsass-admin/serve/dao/db.js
  * @Description: 
  * 
@@ -28,7 +28,7 @@ const md5 = require('md5'); // 引入md5加密
     await adminModel.create({
       loginId: 'admin',
       name: '超级管理员',
-      loginPwd: md5('123456')
+      loginPwd: md5(md5('123456'))
     })
     console.log('初始化数据成功')
   }

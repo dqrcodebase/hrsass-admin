@@ -1,8 +1,8 @@
 <!--
  * @Author: dqr
  * @Date: 2024-11-12 21:54:30
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2024-11-21 22:14:02
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2024-11-28 16:28:37
  * @FilePath: /hrsass-admin/view/src/views/Index.vue
  * @Description: 
  * 
@@ -82,12 +82,12 @@
 </template>
 
 <script setup lang="ts">
-import useUser from '../store/modules/user.js'
+import {useUserStore} from '../store/modules/user'
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router'
 import {ChatDotRound,House,Location,Message,User} from '@element-plus/icons-vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-let userStore = useUser() 
+import {  ElMessageBox } from 'element-plus'
+let userStore = useUserStore() 
 let router = useRouter()
 
 onMounted(() => {

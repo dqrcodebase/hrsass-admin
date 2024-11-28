@@ -2,18 +2,19 @@
  * @Author: dqr
  * @Date: 2024-11-27 22:23:53
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-27 22:39:53
+ * @LastEditTime: 2024-11-28 14:40:34
  * @FilePath: /hrsass-admin/serve/utils/tool.js
  * @Description: 
  * 
  */
 const jwt = require('jsonwebtoken');
 
-module.exports.formatResponse = function ( code = 200, msg = 'success',data,) {
+module.exports.formatResponse = function ( code = 200, msg = 'ok',data,successfully = true) {
   return {
-    code,
+    code: code.toString(),
     data,
-    msg
+    msg,
+    successfully
   }
 }
 

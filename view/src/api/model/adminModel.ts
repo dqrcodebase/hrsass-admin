@@ -1,9 +1,4 @@
 export interface LoginParams {
-  loginName: string;
+  loginId: string;
   loginPwd: string;
-}
-
-export interface LoginResultModel {
-  userId: string | number;
-  token: string;
 }
