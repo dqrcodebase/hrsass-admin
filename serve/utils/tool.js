@@ -27,3 +27,12 @@ module.exports.analysisToken = function (token) {
     return null
   }
 }
+
+// 处理数据类型响应数据
+module.exports.handleDataPattern = function (data) {
+  const arr = []
+  for(const key in data){
+    arr.push(data[key])
+  }
+  return arr
+}

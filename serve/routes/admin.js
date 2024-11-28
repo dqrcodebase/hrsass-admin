@@ -10,12 +10,17 @@
 const express = require('express');
 const router = express.Router();
 
-const {loginService} = require('../service/adminService');
+const {loginService,updateAdminService} = require('../service/adminService');
 const {formatResponse, analysisToken} = require('../utils/tool');
+const {ValidationError} = require('../utils/errors');
 
 // 登录接口
 router.post('/login', async function(req, res, next) {
   // 首先应该有验证码验证
+  if(req.body.captcha.toLowerCase() !== req.session.captcha.toLowerCase()){
+    // 验证码错误
+    throw new ValidationError('验证码错误');
+  }
   const result = await loginService(req.body);
   if(result && result.token) {
     res.setHeader('Authorization', result.token);
@@ -39,5 +44,8 @@ router.get('/whoami', async function(req, res, next) {
   }));
   
 });
+router.put('/',async function(req,res,next){
+  res.send(await updateAdminService(req.body));
+})
 
 module.exports = router;

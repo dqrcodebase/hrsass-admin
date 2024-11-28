@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 15:04:21
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 10:03:15
+ * @LastEditTime: 2024-11-28 22:29:34
  * @FilePath: /hrsass-admin/serve/app.js
  * @Description: 
  * 
@@ -14,20 +14,28 @@ const  path = require('path');
 const  cookieParser = require('cookie-parser');
 const  logger = require('morgan');
 const {expressjwt} = require('express-jwt');
-console.log("🚀 ~ expressJwt:", expressjwt)
 const md5 = require('md5');
-const {ForbiddenError} = require('./utils/errors');
-
+const {ForbiddenError, ServiceError, UnknownError} = require('./utils/errors');
+const session = require('express-session');
 
 // 默认读取项目根目录下的.env文件
 require('dotenv').config();
+require('express-async-errors');
 // 引入数据库连接
 require('./dao/db');
 // 引入路由
 const adminRouter = require('./routes/admin');
+const captchaRouter = require('./routes/captcha');
+const bannerRouter = require('./routes/banner');
 
 // 创建服务器实例
 const  app = express();
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave:true,
+  saveUninitialized:true,
+}))
 
 
 app.use(logger('dev'));
@@ -44,10 +52,17 @@ app.use(expressjwt({
   path: [{
     url: '/api/admin/login',
     methods: ['POST']
-  }] // 不需要验证token的接口
+  },
+  {
+    url: '/api/captcha',
+    methods: ['POST']
+  }
+] // 不需要验证token的接口
 }))
 // 使用路由中间件
 app.use('/api/admin', adminRouter);
+app.use('/api/captcha', captchaRouter);
+app.use('/api/banner', bannerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -61,6 +76,10 @@ app.use(function(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     // 说明token验证失败
     res.send(new ForbiddenError('未登录,获取token过期'));
+  }else if(err instanceof ServiceError){
+    res.send(err.toResponseJSON())
+  }else {
+    res.send(new UnknownError().toResponseJSON())
   }
 });
 

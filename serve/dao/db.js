@@ -11,6 +11,7 @@
 const sequelize = require('./dbConnect'); // 数据库连接实例
 const adminModel = require('./model/adminModel'); // 引入模型
 const md5 = require('md5'); // 引入md5加密
+const bannerModel = require('./model/bannerModel');
 
 // 同步数据库
 (async () => {
@@ -20,7 +21,6 @@ const md5 = require('md5'); // 引入md5加密
   });
   // 同步完成后,有些表需要初始化数据
   // 我们需要先判断表中是否有数据,如果没有数据,则需要初始化数据
-
   const adminCount = await adminModel.count()
   if(!adminCount) {
     // 如果没有数据,则需要初始化数据
@@ -30,7 +30,19 @@ const md5 = require('md5'); // 引入md5加密
       name: '超级管理员',
       loginPwd: md5(md5('123456'))
     })
-    console.log('初始化数据成功')
+    console.log('初始化数据成功adminModel')
+  }
+  const bannerModel = await bannerModel.count()
+  if(!bannerModel){
+    // 如果没有数据,则需要初始化数据
+    // 初始化数据
+    await bannerModel.bulkCreate({
+      midImg: 'http://localhost:3000/public/images/banner1.jpg',
+      bigImg: 'http://localhost:3000/public/images/banner1.jpg',
+      title: '这是标题',
+      description: '这是描述'
+    })
+    console.log('初始化数据成功bannerModel')
   }
   console.log('数据库同步成功')
 })();

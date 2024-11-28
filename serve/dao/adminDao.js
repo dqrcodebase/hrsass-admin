@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-27 22:01:09
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 10:19:43
+ * @LastEditTime: 2024-11-28 22:32:27
  * @FilePath: /hrsass-admin/serve/dao/adminDao.js
  * @Description: 
  * 
@@ -17,6 +17,16 @@ module.exports.loginDao = async function (loginInfo) {
     where: {
       loginId: loginInfo.loginId,
       loginPwd: loginInfo.loginPwd
+    }
+  })
+  return result
+}
+
+module.exports.updateAdminDao = async function (userInfo) {
+  // 更新用户信息
+  const result = await adminModel.update(userInfo,{
+    where: {
+      loginId: userInfo.loginId,
     }
   })
   return result

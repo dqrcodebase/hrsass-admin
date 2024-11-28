@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-27 21:51:06
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 14:44:11
+ * @LastEditTime: 2024-11-28 22:22:45
  * @FilePath: /hrsass-admin/serve/service/adminService.js
  * @Description: 
  * 
@@ -10,9 +10,11 @@
 // admin 模块的业务逻辑
 const md5 = require('md5');
 // 引入dao层
-const { loginDao } = require('../dao/adminDao');
+const { loginDao ,updateAdminDao} = require('../dao/adminDao');
 const jwt = require('jsonwebtoken');
+const { ValidationError } = require('sequelize');
 
+// 登录业务逻辑
 module.exports.loginService = async function (loginInfo) {
   console.log("🚀 ~ loginInfo:", loginInfo)
   if(!loginInfo.loginId || !loginInfo.loginPwd){
@@ -43,4 +45,24 @@ module.exports.loginService = async function (loginInfo) {
     }
   }
   return data
+}
+
+// 更新用户信息 
+module.exports.updateAdminService = async function (userInfo) {
+  // 根据用户id查询用户信息(使用旧密码)
+  const adminInfo = await loginDao({
+    loginId: userInfo.loginId,
+    loginPwd: md5(userInfo.loginPwd)
+  })
+  if(adminInfo && adminInfo.dataValues){
+    // 更新用户信息
+    const result = await updateAdminDao({
+      loginPwd: md5(userInfo.newPwd),
+      name: userInfo.name,
+      loginId: userInfo.loginId
+    })
+    return formatResponse(200, 'ok', result)
+  }else {
+    throw new ValidationError('旧密码错误')
+  }
 }
