@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 16:11:44
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 21:50:57
+ * @LastEditTime: 2024-11-29 10:54:39
  * @FilePath: /hrsass-admin/serve/utils/errors.js
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 // 自定义错误
 // 当错误发生时，我们捕获到发生的错误,然后抛出我们自定义的错误
 
-const {formatResponse} = require('../utils/tool');
+const { formatResponse } = require('../utils/tool');
 
 /**
  * 业务处理错误基类
@@ -23,7 +23,7 @@ class ServiceError extends Error {
    * @param {*} message 错误信息
    * @param {*} code 错误的消息码
    */
-  constructor(message, code) {
+  constructor(code, message) {
     super(message);
     this.code = code;
   }
@@ -31,28 +31,28 @@ class ServiceError extends Error {
   // 方法
   // 将错误信息转换为JSON格式
   toResponseJSON() {
-    return formatResponse(this.message, this.code);
+    return formatResponse(this.code, this.message,'',false);
   }
 }
 
 // 文件上传错误
 exports.UploadError = class extends ServiceError {
   constructor(message) {
-    super(message, 414);
+    super(414, message);
   }
 }
 
 // 禁止访问错误
 exports.ForbiddenError = class extends ServiceError {
   constructor(message) {
-    super(message, 401);
+    super(401, message);
   }
 }
 
 // 验证错误
 exports.ValidationError = class extends ServiceError {
   constructor(message) {
-    super(message, 406);
+    super(406, message);
   }
 }
 

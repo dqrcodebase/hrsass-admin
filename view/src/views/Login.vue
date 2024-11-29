@@ -1,19 +1,28 @@
 <!--
  * @Author: dqr
+ * @Date: 2024-11-25 14:21:44
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2024-11-29 15:24:04
+ * @FilePath: /hrsass-admin/view/src/views/Login.vue
+ * @Description: 
+ * 
+-->
+<!--
+ * @Author: dqr
  * @Date: 2024-11-12 21:54:24
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 16:17:57
+ * @LastEditTime: 2024-11-29 11:24:40
  * @FilePath: /hrsass-admin/view/src/views/Login.vue
  * @Description: 
  * 
 -->
 <template>
   <div class="login">
-    <div class="box">
+    <div class="box flex flex-col items-center">
       <h2>百望云酒店管理</h2>
       <el-form
         ref="ruleFormRef"
-        style="max-width: 600px"
+        style="max-width: 400px"
         :model="formData"
         status-icon
         :rules="rules"
@@ -28,6 +37,15 @@
             type="password"
             autocomplete="off"
           />
+        </el-form-item>
+        <el-form-item label="验证码" prop="captcha">
+          <div class="flex justify-between container ">
+            <el-input
+              v-model="formData.captcha"
+              placeholder="请输入验证码"
+            />
+            <div class="ml-[12px]" v-html="captcha"></div>
+          </div>
         </el-form-item>
 
         <el-form-item>
@@ -45,46 +63,49 @@
 import { reactive, ref, onMounted } from 'vue'
 //  导入element-plus的类型
 import type { FormInstance, FormRules } from 'element-plus'
-import { loginApi, getUserInfoApi } from '@/api/admin'
-import { useRouter } from 'vue-router'
-import {useUserStore} from '@/store/modules/user'
-import {LoginParams} from '@/api/model/adminModel'
+import { getCaptchaApi } from '@/api/common'
+import { useUserStore } from '@/store/modules/user'
+import { LoginParams } from '@/api/model/adminModel'
 const userStore = useUserStore()
 
-const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
-
 const formData = reactive<LoginParams>({
   loginId: 'admin',
   loginPwd: '123456',
+  captcha: '',
 })
 
 const rules = reactive<FormRules<LoginParams>>({
   loginId: [{ trigger: 'blur', required: true, message: '请输入账号' }],
   loginPwd: [{ trigger: 'blur', required: true, message: '请输入密码' }],
+  captcha: [{ trigger: 'blur', required: true, message: '请输入验证码' }],
 })
-
-const submitForm = (formEl: FormInstance | undefined) => {
+const captcha = ref<string>('')
+onMounted(() => {
+  getCaptcha()
+})
+function submitForm(formEl: FormInstance | undefined) {
   if (!formEl) return
   formEl.validate(async (valid) => {
     console.log('🚀 ~ formEl.validate ~ valid:', valid)
     if (valid) {
-      let res: boolean = await userStore.login(formData)
-      if (res) {
-        let user = await getUserInfoApi()
-        userStore.setUser(user)
-        sessionStorage.setItem('user', JSON.stringify(user))
-        router.push('/index')
-      }
+      await userStore.login(formData)
     } else {
       console.log('error submit!')
     }
   })
 }
 
-const resetForm = (formEl: FormInstance | undefined) => {
+function resetForm(formEl: FormInstance | undefined) {
   if (!formEl) return
   formEl.resetFields()
+}
+
+function getCaptcha() {
+  getCaptchaApi().then((res) => {
+    console.log(res)
+    captcha.value = res
+  })
 }
 </script>
 
@@ -97,7 +118,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   justify-content: center;
   align-items: center;
   .box {
-    width: 400px;
+    width: 600px;
     border: 1px solid #fff;
     padding: 20px;
     ::v-deep .el-form-item__label {

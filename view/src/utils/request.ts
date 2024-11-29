@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-18 20:15:48
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 16:12:00
+ * @LastEditTime: 2024-11-29 10:59:30
  * @FilePath: /hrsass-admin/view/src/utils/request.ts
  * @Description: 
  * 
@@ -27,6 +27,7 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
   console.log("🚀 ~ response:", response)
   const res = response.data
+  let isRequestSuccess = true
   if (res && res.code) {
     switch (res.code) {
       case "0000":
@@ -35,9 +36,10 @@ instance.interceptors.response.use(function (response) {
         break;
       default:
         ElMessage.error(res.msg);
+        isRequestSuccess = false
     }
   } 
-  return response
+  return isRequestSuccess ? res : Promise.reject(response)
 }, function (error) {
   console.log("🚀 ~ error:", error)
   ElMessage.error(error);

@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 21:07:20
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 10:27:25
+ * @LastEditTime: 2024-11-29 10:18:55
  * @FilePath: /hrsass-admin/serve/dao/db.js
  * @Description: 
  * 
@@ -32,16 +32,26 @@ const bannerModel = require('./model/bannerModel');
     })
     console.log('初始化数据成功adminModel')
   }
-  const bannerModel = await bannerModel.count()
-  if(!bannerModel){
+  const bannerCount = await bannerModel.count()
+  if(!bannerCount){
     // 如果没有数据,则需要初始化数据
     // 初始化数据
-    await bannerModel.bulkCreate({
-      midImg: 'http://localhost:3000/public/images/banner1.jpg',
-      bigImg: 'http://localhost:3000/public/images/banner1.jpg',
-      title: '这是标题',
-      description: '这是描述'
-    })
+    await bannerModel.bulkCreate([{
+      "midImg": "/static/images/bg1_mid.jpg",
+      "bigImg": "/static/images/bg1_big.jpg",
+      "title": "塞尔达旷野之息",
+      "description": "2017年年度游戏，期待续作"
+  }, {
+      "midImg": "/static/images/bg2_mid.jpg",
+      "bigImg": "/static/images/bg2_big.jpg",
+      "title": "塞尔达四英杰",
+      "description": "四英杰里面你最喜欢的又是谁呢"
+  }, {
+      "midImg": "/static/images/bg3_mid.jpg",
+      "bigImg": "/static/images/bg3_big.jpeg",
+      "title": "日本街道",
+      "description": "动漫中经常出现的日本农村街道，一份独特的恬静"
+  }])
     console.log('初始化数据成功bannerModel')
   }
   console.log('数据库同步成功')

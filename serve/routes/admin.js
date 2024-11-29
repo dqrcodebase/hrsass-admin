@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 21:20:38
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 14:44:26
+ * @LastEditTime: 2024-11-29 10:39:48
  * @FilePath: /hrsass-admin/serve/routes/admin.js
  * @Description: 
  * 
@@ -17,7 +17,7 @@ const {ValidationError} = require('../utils/errors');
 // 登录接口
 router.post('/login', async function(req, res, next) {
   // 首先应该有验证码验证
-  if(req.body.captcha.toLowerCase() !== req.session.captcha.toLowerCase()){
+  if(!req.body.captcha || req.body.captcha.toLowerCase() !== req.session.captcha.toLowerCase()){
     // 验证码错误
     throw new ValidationError('验证码错误');
   }
