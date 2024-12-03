@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-25 14:21:44
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-29 15:24:04
+ * @LastEditTime: 2024-12-02 10:47:45
  * @FilePath: /hrsass-admin/view/src/views/Login.vue
  * @Description: 
  * 
@@ -24,19 +24,28 @@
         ref="ruleFormRef"
         style="max-width: 400px"
         :model="formData"
-        status-icon
         :rules="rules"
         label-width="100px"
       >
-        <el-form-item label="账号" prop="loginId">
-          <el-input v-model="formData.loginId" />
+        <el-form-item label="账号" prop="loginName">
+          <el-input v-model="formData.loginName" />
         </el-form-item>
         <el-form-item label="密码" prop="loginPwd">
           <el-input
             v-model="formData.loginPwd"
-            type="password"
+            :type="isPassword ? 'password' : 'text'"
             autocomplete="off"
-          />
+          >
+
+          <template #suffix>
+            <div class="cursor-pointer" v-if="isPassword === true" @click="isPassword = false">
+              <el-icon><View /></el-icon>
+            </div>
+            <div class="cursor-pointer" v-else @click="isPassword = true">
+              <el-icon><Hide /></el-icon>
+            </div>
+          </template>
+          </el-input>
         </el-form-item>
         <el-form-item label="验证码" prop="captcha">
           <div class="flex justify-between container ">
@@ -44,7 +53,7 @@
               v-model="formData.captcha"
               placeholder="请输入验证码"
             />
-            <div class="ml-[12px]" v-html="captcha"></div>
+            <div class="ml-[12px] cursor-pointer" @click="getCaptcha" v-html="captcha"></div>
           </div>
         </el-form-item>
 
@@ -63,6 +72,7 @@
 import { reactive, ref, onMounted } from 'vue'
 //  导入element-plus的类型
 import type { FormInstance, FormRules } from 'element-plus'
+import {View,Hide} from '@element-plus/icons-vue'
 import { getCaptchaApi } from '@/api/common'
 import { useUserStore } from '@/store/modules/user'
 import { LoginParams } from '@/api/model/adminModel'
@@ -70,16 +80,17 @@ const userStore = useUserStore()
 
 const ruleFormRef = ref<FormInstance>()
 const formData = reactive<LoginParams>({
-  loginId: 'admin',
+  loginName: 'admin',
   loginPwd: '123456',
   captcha: '',
 })
 
 const rules = reactive<FormRules<LoginParams>>({
-  loginId: [{ trigger: 'blur', required: true, message: '请输入账号' }],
+  loginName: [{ trigger: 'blur', required: true, message: '请输入账号' }],
   loginPwd: [{ trigger: 'blur', required: true, message: '请输入密码' }],
   captcha: [{ trigger: 'blur', required: true, message: '请输入验证码' }],
 })
+const isPassword = ref<boolean>(true)
 const captcha = ref<string>('')
 onMounted(() => {
   getCaptcha()
@@ -87,9 +98,10 @@ onMounted(() => {
 function submitForm(formEl: FormInstance | undefined) {
   if (!formEl) return
   formEl.validate(async (valid) => {
-    console.log('🚀 ~ formEl.validate ~ valid:', valid)
     if (valid) {
-      await userStore.login(formData)
+      await userStore.login(formData).catch((err) => {
+        getCaptcha()
+      })
     } else {
       console.log('error submit!')
     }
@@ -103,8 +115,7 @@ function resetForm(formEl: FormInstance | undefined) {
 
 function getCaptcha() {
   getCaptchaApi().then((res) => {
-    console.log(res)
-    captcha.value = res
+    captcha.value = res.data
   })
 }
 </script>

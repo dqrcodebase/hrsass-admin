@@ -1,56 +1,144 @@
 <!--
  * @Author: dqr
  * @Date: 2024-11-21 22:17:13
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2024-11-22 08:45:47
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2024-12-03 16:31:24
  * @FilePath: /hrsass-admin/view/src/views/user/Role.vue
  * @Description: 
  * 
 -->
 <template>
-  <div>
-    <el-table size="small" :data="roles" style="width: 100%">
-    <el-table-column prop="roleId" label="编号" width="180" />
-    <el-table-column prop="roleName" label="名称" width="180" />
-    <el-table-column align="right" label="操作">
-      <template #default="scope">
-        <el-button size="small" @click="handleEdit(scope.$index, scope.row)">
-          编辑
-        </el-button>
-        <el-button
-          size="small"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
-        >
-          删除
-        </el-button>
+  <div class="h-full">
+    <div class="h-full flex flex-col">
+      <div>
+        <el-button @click="handleAdd" type="primary">添加</el-button>
+      </div>
+      <el-table size="small" :data="roles" class="flex-1">
+        <el-table-column prop="roleCode" label="编号" width="180" />
+        <el-table-column prop="roleName" label="名称" width="180" />
+        <el-table-column align="right" label="操作">
+          <template #default="scope">
+            <el-button
+              size="small"
+              @click="handleEdit(scope.$index, scope.row)"
+            >
+              编辑
+            </el-button>
+            <el-button
+              size="small"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+            >
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="w-full flex justify-end p-[12px]">
+      <el-pagination
+        v-model:current-page="pagination.currentPage"
+        v-model:page-size="pagination.pageSize"
+        :page-sizes="[10, 20, 30, 40]"
+        :total="pagination.total"
+        size="small"
+        layout="total, sizes, prev, pager, next, jumper,default"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+      <template v-slot:default>
+        <div>ddd</div>
       </template>
-    </el-table-column>
-  </el-table>
+      </el-pagination>
+    </div>
+
+    </div>
+    <EditRoleDrawer
+     v-model:drawer="drawer"
+      :info="formData"
+      @onSuccess="onSuccess"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted ,ref} from 'vue';
-import {$list} from '../../api/role.ts'
+import { onMounted, ref } from 'vue'
+import { getRoleListApi ,removesRoleApi} from '@/api/role'
+import { RoleParams } from '@/api/model/roleModel'
+import EditRoleDrawer from './components/EditRoleDrawer.vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 let roles = ref([])
 
-
-const loadRoles = async () => {
-  roles.value = await $list()
-}
-onMounted(() => {
-  loadRoles()
-  console.log('Role')
+const pagination = ref({
+  currentPage: 0,
+  pageSize: 20,
+  total: 0,
 })
-function handleEdit(index: number, row: any) {
-  console.log(index, row);
+const drawer = ref(false)
+const formData = ref<RoleParams>({
+  roleCode: '',
+  roleName: '',
+})
+
+onMounted(() => {
+  getRoleList()
+})
+
+async function getRoleList() {
+  const paginationParams = {
+    page: pagination.value.currentPage,
+    limit: pagination.value.pageSize,
+  }
+  const { data } = await getRoleListApi(paginationParams, {
+    roleName: '2222',
+  })
+  roles.value = data
 }
-function handleDelete(index: number, row: any) {
-  console.log(index, row);
+function handleSizeChange(val: number) {
+  pagination.value.pageSize = val
+  getRoleList()
+}
+
+function handleCurrentChange(val: number) {
+  pagination.value.currentPage = val
+  getRoleList()
+}
+// 编辑
+function handleEdit(index: number, row: any) {
+  formData.value = {...row}
+  drawer.value = true
+  console.log(index, row)
+}
+// 删除
+ function handleDelete(index: number, row: any) {
+  console.log(index, row)
+  ElMessageBox.confirm(
+    '是否删除该角色?',
+    'Warning',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(async() => {
+      await removesRoleApi([row.id])
+      ElMessage({
+        type: 'success',
+        message: '删除成功',
+      })
+      getRoleList()
+    })
+}
+
+// 添加
+function handleAdd() {
+  console.log('add')
+  drawer.value = true
+}
+
+function onSuccess() {
+  getRoleList()
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

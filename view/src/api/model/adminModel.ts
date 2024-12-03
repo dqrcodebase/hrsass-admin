@@ -1,5 +1,5 @@
 export interface LoginParams {
-  loginId: string;
+  loginName: string;
   loginPwd: string;
   captcha: string;
 }

@@ -18,3 +18,9 @@ export const getLocalCache = (key: string) => {
   const value = localStorage.getItem(key)
   return value ? JSON.parse(value) : null
 } 
+export const removeLocalCache = (key: string) => {
+  localStorage.removeItem(key)
+}
+export const clearLocalCache = () => {
+  localStorage.clear()
+}

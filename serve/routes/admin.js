@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 21:20:38
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-29 10:39:48
+ * @LastEditTime: 2024-12-02 15:55:58
  * @FilePath: /hrsass-admin/serve/routes/admin.js
  * @Description: 
  * 
@@ -10,9 +10,10 @@
 const express = require('express');
 const router = express.Router();
 
-const {loginService,updateAdminService} = require('../service/adminService');
+const {loginService,updateAdminService,getAdminService} = require('../service/adminService');
 const {formatResponse, analysisToken} = require('../utils/tool');
 const {ValidationError} = require('../utils/errors');
+var  jwt  =  require ( "express-jwt" ) ; 
 
 // 登录接口
 router.post('/login', async function(req, res, next) {
@@ -24,7 +25,7 @@ router.post('/login', async function(req, res, next) {
   const result = await loginService(req.body);
   if(result && result.token) {
     res.setHeader('Authorization', result.token);
-    res.setHeader('set-cookie', `token=${result.token};path=/;max-age=${60*60*24*7}`);
+    // res.setHeader('set-cookie', `token=${result.token};path=/;max-age=${60*60*24*7}`);
     res.send(formatResponse(200, 'success', result));
   } else {
     res.send(formatResponse(9999, '用户名或密码错误', result,false));
@@ -39,13 +40,18 @@ router.get('/whoami', async function(req, res, next) {
   // 解析token,还原成用户信息
   res.send(formatResponse(200, '', {
     id: token.id,
-    loginId: token.loginId,
+    loginName: token.loginName,
     name: token.name
   }));
   
 });
 router.put('/',async function(req,res,next){
   res.send(await updateAdminService(req.body));
+})
+router.get('/',async function(req,res,next){
+  console.log("🚀 ~ router.get ~ req:111111111", req.auth)
+  // req.auth是解码后的负载对象
+  res.send(await getAdminService(req.auth));
 })
 
 module.exports = router;

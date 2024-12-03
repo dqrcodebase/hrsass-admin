@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 16:11:44
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-29 10:54:39
+ * @LastEditTime: 2024-12-02 14:27:03
  * @FilePath: /hrsass-admin/serve/utils/errors.js
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 // 自定义错误
 // 当错误发生时，我们捕获到发生的错误,然后抛出我们自定义的错误
 
-const { formatResponse } = require('../utils/tool');
+const { formatResponse } = require('./tool');
 
 /**
  * 业务处理错误基类
@@ -26,6 +26,7 @@ class ServiceError extends Error {
   constructor(code, message) {
     super(message);
     this.code = code;
+    this.message = message;
   }
 
   // 方法

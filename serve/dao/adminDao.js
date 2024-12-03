@@ -11,11 +11,10 @@
 const adminModel = require('./model/adminModel');
 
 module.exports.loginDao = async function (loginInfo) {
-  console.log("🚀 ~ loginInfo:", loginInfo)
   // 接下来就是需要连接数据库,查询数据
  const result = await adminModel.findOne({
     where: {
-      loginId: loginInfo.loginId,
+      loginName: loginInfo.loginName,
       loginPwd: loginInfo.loginPwd
     }
   })
@@ -26,7 +25,7 @@ module.exports.updateAdminDao = async function (userInfo) {
   // 更新用户信息
   const result = await adminModel.update(userInfo,{
     where: {
-      loginId: userInfo.loginId,
+      loginName: userInfo.loginName,
     }
   })
   return result

@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 21:02:51
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-24 21:13:27
+ * @LastEditTime: 2024-12-03 09:41:56
  * @FilePath: /hrsass-admin/serve/dao/model/adminModel.js
  * @Description: 
  * 
@@ -12,7 +12,7 @@ const sequelize = require('../dbConnect')
 
 // 创建模型
 const Admin = sequelize.define('Admin', {
-  loginId: {
+  loginName: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -25,8 +25,6 @@ const Admin = sequelize.define('Admin', {
     allowNull: false
   },
 }, {
-  // 指定表名
-  tableName: 'admin',
   // 是否默认加s
   freezeTableName: true,
   // 是否需要时间戳 createAt updateAt

@@ -2,19 +2,19 @@
  * @Author: dqr
  * @Date: 2024-11-19 22:36:38
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-29 11:05:38
+ * @LastEditTime: 2024-12-02 16:06:49
  * @FilePath: /hrsass-admin/view/src/store/modules/user.ts
  * @Description: 
  * 
  */
-import {defineStore} from 'pinia'
-import {User} from '../../../types/store'
-import { loginApi,getUserInfoApi } from '@/api/admin';
+import { defineStore } from 'pinia'
+import { User } from '../../../types/store'
+import { loginApi, getUserInfoApi } from '@/api/admin';
 import { LoginParams } from '@/api/model/adminModel';
-import {setAuthCache} from '@/utils/auth'
+import { setToken, removeToken } from '@/utils/auth'
 import router from '@/router';
 import { md5 } from 'md5js'
-import {setLocalCache} from '@/utils/cache'
+import { setLocalCache, clearLocalCache, clearSessionCache, getLocalCache } from '@/utils/cache'
 
 
 interface UserState {
@@ -22,28 +22,37 @@ interface UserState {
 }
 export const useUserStore = defineStore({
   id: 'user',
-  state: ():UserState => ({
+  state: (): UserState => ({
     user: {
-      loginId: '', 
-    } 
+      loginName: '',
+      name: '',
+      id: ''
+    }
   }),
   actions: {
-    setUser(user:object) {
+    setUser(user: object) {
       this.user = user;
-      setLocalCache('user',user);
+      setLocalCache('user', user);
+    },
+    getUser() {
+      const user = getLocalCache('user');
+      this.user = user;
+      return user;
     },
     clearUser() {
-      sessionStorage.clear();
-      this.user = { loginId: '' };
+      removeToken();
+      clearLocalCache();
+      clearSessionCache();
+      this.user = { loginName: '' };
     },
     setToken(token: string | undefined) {
-      setAuthCache('token',token);
+      setToken(token);
     },
     async login(loginParams: LoginParams) {
-      const params= {
+      const params = {
         ...loginParams,
         // 对密码进行加密
-        loginId: md5(loginParams.loginPwd, 32) 
+        loginPwd: md5(loginParams.loginPwd, 32)
       }
 
       const result = await loginApi(params)
@@ -52,6 +61,10 @@ export const useUserStore = defineStore({
       router.push('/');
     },
     async getUserInfo() {
+      const user = getLocalCache('user');
+      if(user) {
+        return this.getUser()
+      }
       const result = await getUserInfoApi();
       if (result.successfully) {
         this.setUser(result.data as User); // Specify the type of `result.data` as `User`
@@ -59,3 +72,7 @@ export const useUserStore = defineStore({
     },
   },
 })
+
+export function useUserWithOut() {
+  return useUserStore()
+}

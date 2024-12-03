@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-27 21:51:06
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 22:22:45
+ * @LastEditTime: 2024-12-02 15:03:21
  * @FilePath: /hrsass-admin/serve/service/adminService.js
  * @Description: 
  * 
@@ -13,11 +13,11 @@ const md5 = require('md5');
 const { loginDao ,updateAdminDao} = require('../dao/adminDao');
 const jwt = require('jsonwebtoken');
 const { ValidationError } = require('sequelize');
+const { formatResponse } = require('../utils/tool');
 
 // 登录业务逻辑
 module.exports.loginService = async function (loginInfo) {
-  console.log("🚀 ~ loginInfo:", loginInfo)
-  if(!loginInfo.loginId || !loginInfo.loginPwd){
+  if(!loginInfo.loginName || !loginInfo.loginPwd){
     return null
   }
   loginInfo.loginPwd = md5(loginInfo.loginPwd); // 进行密码加密
@@ -26,7 +26,7 @@ module.exports.loginService = async function (loginInfo) {
   if(data && data.dataValues){
     data = {
       id: data.dataValues.id,
-      loginId: data.dataValues.loginId,
+      loginName: data.dataValues.loginName,
       name: data.dataValues.name,
     }
     if(loginInfo.remember){
@@ -46,12 +46,22 @@ module.exports.loginService = async function (loginInfo) {
   }
   return data
 }
+// 获取用户信息
+module.exports.getAdminService = async function (auth) {
+  // 解析token
+  const userInfo = formatResponse(200, '', {
+    id: auth.id,
+    loginName: auth.loginName,
+    name:auth.name
+  })
+  return userInfo
+}
 
 // 更新用户信息 
 module.exports.updateAdminService = async function (userInfo) {
   // 根据用户id查询用户信息(使用旧密码)
   const adminInfo = await loginDao({
-    loginId: userInfo.loginId,
+    loginName: userInfo.loginName,
     loginPwd: md5(userInfo.loginPwd)
   })
   if(adminInfo && adminInfo.dataValues){
@@ -59,7 +69,7 @@ module.exports.updateAdminService = async function (userInfo) {
     const result = await updateAdminDao({
       loginPwd: md5(userInfo.newPwd),
       name: userInfo.name,
-      loginId: userInfo.loginId
+      loginName: userInfo.loginName
     })
     return formatResponse(200, 'ok', result)
   }else {

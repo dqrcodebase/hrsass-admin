@@ -2,15 +2,16 @@
  * @Author: dqr
  * @Date: 2024-11-24 21:07:20
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-29 10:18:55
+ * @LastEditTime: 2024-12-03 16:34:52
  * @FilePath: /hrsass-admin/serve/dao/db.js
  * @Description: 
  * 
  */
 // 该文件负责对数据库进行一个初始化操作
 const sequelize = require('./dbConnect'); // 数据库连接实例
-const adminModel = require('./model/adminModel'); // 引入模型
 const md5 = require('md5'); // 引入md5加密
+const roleModel = require('./model/roleModel');
+const adminModel = require('./model/adminModel'); // 引入模型
 const bannerModel = require('./model/bannerModel');
 
 // 同步数据库
@@ -26,7 +27,7 @@ const bannerModel = require('./model/bannerModel');
     // 如果没有数据,则需要初始化数据
     // 初始化数据
     await adminModel.create({
-      loginId: 'admin',
+      loginName: 'admin',
       name: '超级管理员',
       loginPwd: md5(md5('123456'))
     })
@@ -53,6 +54,21 @@ const bannerModel = require('./model/bannerModel');
       "description": "动漫中经常出现的日本农村街道，一份独特的恬静"
   }])
     console.log('初始化数据成功bannerModel')
+  }
+  const roleCount = await roleModel.count()
+  if(!roleCount){
+    // 如果没有数据,则需要初始化数据
+    // 初始化100条数据
+    const roleList = []
+    for(let i = 0; i < 100; i++) {
+      roleList.push({
+        roleName: `角色${i}`,
+        roleDesc: `描述${i}`,
+        roleCode: `code${i}`
+      })
+    }
+    await roleModel.bulkCreate(roleList)
+    console.log('初始化数据成功roleModel')
   }
   console.log('数据库同步成功')
 })();
