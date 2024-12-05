@@ -132,6 +132,7 @@ const exit = () => {
   userStore.clearUser()
   
   router.push("/login")
+  
 }
 const language = computed(() => commonStore.language)
 
