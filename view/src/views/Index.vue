@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:30
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-05 16:54:10
+ * @LastEditTime: 2024-12-05 16:57:35
  * @FilePath: /hrsass-admin/view/src/views/Index.vue
  * @Description: 
  * 
@@ -130,6 +130,7 @@ onMounted(() => {
 })
 const exit = () => {
   userStore.clearUser()
+  
   router.push("/login")
 }
 const language = computed(() => commonStore.language)
