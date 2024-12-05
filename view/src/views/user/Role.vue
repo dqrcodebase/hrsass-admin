@@ -69,7 +69,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 let roles = ref([])
 
 const pagination = ref({
-  currentPage: 0,
+  currentPage: 1,
   pageSize: 20,
   total: 0,
 })
@@ -85,13 +85,12 @@ onMounted(() => {
 
 async function getRoleList() {
   const paginationParams = {
-    page: pagination.value.currentPage,
+    page: pagination.value.currentPage - 1,
     limit: pagination.value.pageSize,
   }
-  const { data } = await getRoleListApi(paginationParams, {
-    roleName: '2222',
-  })
-  roles.value = data
+  const { data } = await getRoleListApi(paginationParams)
+  roles.value = data.content
+  pagination.value.total = data.totalElements
 }
 function handleSizeChange(val: number) {
   pagination.value.pageSize = val
@@ -140,5 +139,3 @@ function onSuccess() {
   getRoleList()
 }
 </script>
-
-<style lang="scss" scoped></style>

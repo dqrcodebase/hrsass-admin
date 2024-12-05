@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-12-03 09:49:48
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-03 16:36:20
+ * @LastEditTime: 2024-12-04 09:13:05
  * @FilePath: /hrsass-admin/serve/service/roleService.js
  * @Description: 
  * 
@@ -26,8 +26,7 @@ module.exports.getRoleListService = async function (page, query) {
     offset: Number(page.page) * Number(page.limit),
     limit: Number(page.limit)
   }
-  const result = await getRoleListDao(pageParams, query);
-  return result;
+  return await getRoleListDao(pageParams, query);
 }
 
 // 删除角色

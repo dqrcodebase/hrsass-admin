@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-12-03 15:35:49
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-03 16:31:37
+ * @LastEditTime: 2024-12-03 21:42:26
  * @FilePath: /hrsass-admin/view/src/views/user/components/EditRoleDrawer.vue
  * @Description: 
  * 
@@ -45,7 +45,7 @@ import { RoleParams } from '@/api/model/roleModel'
 const { info } = defineProps({
   info: Object,
 })
-const drawer = defineModel<Boolean>('drawer')
+const drawer = defineModel<boolean>('drawer')
 const emits = defineEmits(['onSuccess', 'onClose'])
 
 const formData = ref<RoleParams>({

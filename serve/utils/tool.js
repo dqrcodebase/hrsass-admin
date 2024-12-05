@@ -9,13 +9,24 @@
  */
 const jwt = require('jsonwebtoken');
 
-module.exports.formatResponse = function ( code = 200, msg = 'ok',data,successfully = true) {
+const formatResponse = function ( code = 200, msg = 'ok',data,successfully = true) {
   return {
     code: code.toString(),
     data,
     msg,
     successfully
   }
+}
+module.exports.formatResponse = formatResponse
+module.exports.formatResponseList = function ( code = 200, msg = 'ok',data,count,successfully = true) {
+  const result = {
+    ...formatResponse(code,msg,data,successfully),
+    data: {
+      content: data,
+      totalElements: count
+    }
+  }
+  return result
 }
 
 module.exports.analysisToken = function (token) {

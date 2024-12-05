@@ -15,18 +15,14 @@ module.exports.addRoleDao = async function (roleInfo) {
   return incrementResult;
 }
 
-module.exports.getRoleListDao = async function (pageParams, query) {
+module.exports.getRoleListDao = async function (pageParams) {
   const result = await roleModel.findAll(
     {
-      ...pageParams
+      ...pageParams,
     }
   );
-  const { count, rows } = await roleModel.findAndCountAll({
-    where: {
-    },
-  });
-  console.log("🚀 ~ count, rows :", count, rows )
-  return result;
+  const { count } = await roleModel.findAndCountAll();
+  return {result,count};
 }
 
 // 更新角色

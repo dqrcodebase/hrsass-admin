@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 22:02:59
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-03 10:15:17
+ * @LastEditTime: 2024-12-04 09:06:42
  * @FilePath: /hrsass-admin/view/src/router/index.ts
  * @Description: 
  * 
@@ -48,6 +48,11 @@ const router = createRouter({
           path: '/role',
           meta: { title: '角色管理' },
           component: () => import('@/views/user/Role.vue')
+        },
+        {
+          path: '/user',
+          meta: { title: '用户管理' },
+          component: () => import('@/views/user/User.vue')
         }
       ]
     },

@@ -17,6 +17,7 @@
     "md5js": "^1.0.7",
     "nprogress": "^0.2.0",
     "pinia": "^2.2.6",
+    "vite-svg-loader": "^5.1.0",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },

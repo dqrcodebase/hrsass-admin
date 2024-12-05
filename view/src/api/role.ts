@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-21 22:16:31
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-03 16:32:37
+ * @LastEditTime: 2024-12-03 16:56:03
  * @FilePath: /hrsass-admin/view/src/api/role.ts
  * @Description: 
  * 
@@ -22,8 +22,8 @@ export const addRoleApi = async (params: RoleParams) => {
 }
 
 // page给一个默认值1，limit给一个默认值10
-export const getRoleListApi = async ({ page = 0, limit = 20 }: PageParams, params: RoleParams) => {
-  return await $post(`${Api.roleList}/${page}/${limit}`, params)
+export const getRoleListApi = async ({ page = 0, limit = 20 }: PageParams) => {
+  return await $post(`${Api.roleList}/${page}/${limit}`)
 }
 
 export const updateRoleApi = async (params: RoleParams) => {
