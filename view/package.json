@@ -8,10 +8,17 @@
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx,.vue --fix .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint:lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*.less": "stylelint --syntax less",
+    "**/*.vue": "eslint --ext .vue",
+    "**/*.{js,jsx,ts,tsx}": "eslint --ext .js,.jsx,.ts,.tsx",
+    "**/*.{js,jsx,tsx,ts,less,md,json,vue}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
