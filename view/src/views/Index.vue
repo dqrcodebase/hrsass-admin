@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:30
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-05 15:32:46
+ * @LastEditTime: 2024-12-05 15:39:24
  * @FilePath: /hrsass-admin/view/src/views/Index.vue
  * @Description: 
  * 
@@ -117,12 +117,13 @@ const commonStore = useCommonStore()
 const router = useRouter()
 
 onMounted(() => {
-  
+
   if (!userStore.user.loginName) {
     router.push('/')
   }
 })
 onMounted(() => {
+  
   if (!userStore.user.loginName) {
     router.push('/')
   }
