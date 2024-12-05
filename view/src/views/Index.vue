@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:30
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-04 16:33:48
+ * @LastEditTime: 2024-12-05 15:32:46
  * @FilePath: /hrsass-admin/view/src/views/Index.vue
  * @Description: 
  * 
@@ -58,9 +58,8 @@
               <el-icon><Message /></el-icon>
             </el-menu-item>
             <el-menu-item index="/mail">
-              
-              <!-- <el-dropdown :hide-on-click="false">
-                <el-icon><InternationalIcon class="outline-none" /></el-icon>
+              <el-dropdown :hide-on-click="false">
+                <!-- <el-icon><InternationalIcon class="outline-none" /></el-icon> -->
                 <template #dropdown>
                   <el-dropdown-menu>
                     <el-dropdown-item>Action 1</el-dropdown-item>
@@ -69,7 +68,7 @@
                     <el-dropdown-item>Action 4</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
-              </el-dropdown> -->
+              </el-dropdown>
             </el-menu-item>
 
             <el-menu-item index="/massage">
@@ -104,7 +103,8 @@ import { onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
-import InternationalIcon from '@/assets/icons/internationalIcon.svg'
+// import InternationalIcon from '@/assets/icons/internationalIcon.svg'
+
 import {
   ChatDotRound,
   House,
@@ -112,11 +112,12 @@ import {
   Message,
   User,
 } from '@element-plus/icons-vue'
-let userStore = useUserStore()
-let commonStore = useCommonStore()
-let router = useRouter()
+const userStore = useUserStore()
+const commonStore = useCommonStore()
+const router = useRouter()
 
 onMounted(() => {
+  
   if (!userStore.user.loginName) {
     router.push('/')
   }
@@ -126,7 +127,7 @@ onMounted(() => {
     router.push('/')
   }
 })
-let exit = () => {
+const exit = () => {
   userStore.clearUser()
   router.push('/login')
 }
