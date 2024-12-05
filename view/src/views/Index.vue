@@ -134,6 +134,7 @@ const exit = () => {
   router.push('/login')
 }
 const language = computed(() => commonStore.language)
+
 const locale = computed(() => (language.value === 'zh-cn' ? zhCn : en))
 function handleOpen(key: string, keyPath: string) {
   console.log(key, keyPath)
