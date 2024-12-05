@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:30
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-05 15:47:15
+ * @LastEditTime: 2024-12-05 15:51:47
  * @FilePath: /hrsass-admin/view/src/views/Index.vue
  * @Description: 
  * 
@@ -137,6 +137,7 @@ const language = computed(() => commonStore.language)
 
 const locale = computed(() => (language.value === 'zh-cn' ? zhCn : en))
 function handleOpen(key: string, keyPath: string) {
+  
   
   console.log(key, keyPath)
 }
