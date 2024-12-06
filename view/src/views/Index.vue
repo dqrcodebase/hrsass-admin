@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 21:54:30
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-05 16:57:35
+ * @LastEditTime: 2024-12-06 16:56:48
  * @FilePath: /hrsass-admin/view/src/views/Index.vue
  * @Description: 
  * 
@@ -97,53 +97,49 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/store/modules/user'
-import { useCommonStore } from '@/store/modules/common'
-import { onMounted, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import en from 'element-plus/es/locale/lang/en'
-// import InternationalIcon from '@/assets/icons/internationalIcon.svg'
+import { useUserStore } from "@/store/modules/user";
+import { useCommonStore } from "@/store/modules/common";
+import { onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
+import en from "element-plus/es/locale/lang/en";
+import InternationalIcon from '@/assets/icons/internationalIcon.svg'
 
 import {
   ChatDotRound,
   House,
   Location,
   Message,
-  User,
-} from '@element-plus/icons-vue'
-const userStore = useUserStore()
-const commonStore = useCommonStore()
-const router = useRouter()
+  User
+} from "@element-plus/icons-vue";
+const userStore = useUserStore();
+const commonStore = useCommonStore();
+const router = useRouter();
 
 onMounted(() => {
-
   if (!userStore.user.loginName) {
-    router.push('/')
+    router.push("/");
   }
-})
+});
 onMounted(() => {
   
   if (!userStore.user.loginName) {
-    router.push('/')
+    router.push("/");
   }
-})
+});
 const exit = () => {
-  userStore.clearUser()
-  
-  router.push("/login")
-  
-}
-const language = computed(() => commonStore.language)
+  userStore.clearUser();
 
-const locale = computed(() => (language.value === 'zh-cn' ? zhCn : en))
+  router.push("/login");
+};
+const language = computed(() => commonStore.language);
+
+const locale = computed(() => (language.value === "zh-cn" ? zhCn : en));
 function handleOpen(key: string, keyPath: string) {
-  
-  
-  console.log(key, keyPath)
+  console.log(key, keyPath);
 }
 function handleClose(key: string, keyPath: string) {
-  console.log(key, keyPath)
+  console.log(key, keyPath);
 }
 </script>
 
@@ -152,28 +148,34 @@ function handleClose(key: string, keyPath: string) {
   width: 100vw;
   height: 100vh;
   display: flex;
+
   .left {
     width: 200px;
     background: #142334;
-    color: #ffffff;
+    color: #fff;
+
     el-menu {
       border-right: none;
     }
   }
+
   .right {
     flex: 1;
     display: flex;
     flex-direction: column;
+
     .top {
       height: 60px;
       background: #142334;
-      color: #ffffff;
+      color: #fff;
       display: flex;
       justify-content: flex-end;
+
       .el-menu {
         border-bottom: none;
       }
     }
+
     .content {
       flex: 1;
       background: #f0f2f5;
