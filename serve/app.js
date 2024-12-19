@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-24 15:04:21
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-04 09:16:24
+ * @LastEditTime: 2024-12-11 22:09:57
  * @FilePath: /hrsass-admin/serve/app.js
  * @Description: 
  * 
@@ -30,6 +30,7 @@ const captchaRouter = require('./routes/captcha');
 const bannerRouter = require('./routes/banner');
 const roleRouter = require('./routes/role');
 const userRouter = require('./routes/user');
+const uploadRouter = require('./routes/upload');
 
 
 // 创建服务器实例
@@ -63,6 +64,7 @@ app.use('/api/captcha', captchaRouter);
 app.use('/api/banner', bannerRouter);
 app.use('/api/role', roleRouter);
 app.use('/api/user', userRouter);
+app.use('/api/upload', uploadRouter);
 
 
 // catch 404 and forward to error handler

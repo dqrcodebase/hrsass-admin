@@ -12,7 +12,6 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { getToken } from '@/utils/auth'
 import { useUserWithOut } from '@/store/modules/user'
-import { el } from "element-plus/es/locale";
 
 const router = createRouter({
   history: createWebHistory(),
