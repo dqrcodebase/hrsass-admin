@@ -2,14 +2,15 @@
  * @Author: dqr
  * @Date: 2024-11-27 22:23:53
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-02 14:26:36
+ * @LastEditTime: 2024-12-25 21:02:00
  * @FilePath: /hrsass-admin/serve/utils/tool.js
  * @Description: 
  * 
  */
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 
-const formatResponse = function ( code = 200, msg = 'ok',data,successfully = true) {
+const formatResponse = function ( data = null,code = 200, msg = 'ok',successfully = true) {
   return {
     code: code.toString(),
     data,
@@ -20,7 +21,7 @@ const formatResponse = function ( code = 200, msg = 'ok',data,successfully = tru
 module.exports.formatResponse = formatResponse
 module.exports.formatResponseList = function ( code = 200, msg = 'ok',data,count,successfully = true) {
   const result = {
-    ...formatResponse(code,msg,data,successfully),
+    ...formatResponse(data,code,msg,successfully),
     data: {
       content: data,
       totalElements: count
@@ -47,3 +48,11 @@ module.exports.handleDataPattern = function (data) {
   }
   return arr
 }
+
+module.exports.uploading = multer({
+  storage: storage,
+  limits: {
+    fileSize: 2000000,
+    files: 1
+  }
+})

@@ -26,9 +26,9 @@ router.post('/login', async function(req, res, next) {
   if(result && result.token) {
     res.setHeader('Authorization', result.token);
     // res.setHeader('set-cookie', `token=${result.token};path=/;max-age=${60*60*24*7}`);
-    res.send(formatResponse(200, 'success', result));
+    res.send(formatResponse( result));
   } else {
-    res.send(formatResponse(9999, '用户名或密码错误', result,false));
+    res.send(formatResponse(result,9999, '用户名或密码错误', false));
   }
 
 });
@@ -38,7 +38,7 @@ router.get('/whoami', async function(req, res, next) {
   const token = analysisToken(req.get('Authorization'));
   console.log("🚀 ~ router.get ~ token:", token)
   // 解析token,还原成用户信息
-  res.send(formatResponse(200, '', {
+  res.send(formatResponse({
     id: token.id,
     loginName: token.loginName,
     name: token.name

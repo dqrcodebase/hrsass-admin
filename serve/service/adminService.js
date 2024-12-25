@@ -49,7 +49,7 @@ module.exports.loginService = async function (loginInfo) {
 // 获取用户信息
 module.exports.getAdminService = async function (auth) {
   // 解析token
-  const userInfo = formatResponse(200, '', {
+  const userInfo = formatResponse({
     id: auth.id,
     loginName: auth.loginName,
     name:auth.name
@@ -71,7 +71,7 @@ module.exports.updateAdminService = async function (userInfo) {
       name: userInfo.name,
       loginName: userInfo.loginName
     })
-    return formatResponse(200, 'ok', result)
+    return formatResponse( result)
   }else {
     throw new ValidationError('旧密码错误')
   }

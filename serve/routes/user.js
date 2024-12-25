@@ -15,26 +15,26 @@ const {formatResponse,formatResponseList} = require('../utils/tool');
 // 添加用户
 router.post('/add', async function(req, res, next) {
   const result = await addUserService(req.body);
-  res.send(formatResponse(200, 'success', result));
+  res.send(formatResponse( result));
 });
 
 // 分页获取用户列表
 router.post('/list/:page/:limit', async function(req, res, next) {
   console.log("🚀 ~ router.post ~ req:333333322222", req.body)
   const {result,count} = await getUserListService(req.params,req.body);
-  res.send(formatResponseList(200, 'success', result,count));
+  res.send(formatResponseList( result,count));
 });
 
 // 删除用户
 router.delete('/removes', async function(req, res, next) {
   await removesUserService(req.body);
-  res.send(formatResponse(200, 'success'));
+  res.send(formatResponse());
 });
 
 // 更新用户
 router.put('/update', async function(req, res, next) {
   const result = await updateUserService(req.body);
-  res.send(formatResponse(200, 'success',result));
+  res.send(formatResponse(result));
 });
 
 module.exports = router;

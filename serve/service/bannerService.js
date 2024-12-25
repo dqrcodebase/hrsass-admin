@@ -12,7 +12,7 @@ const { handleDataPattern, formatResponse } = require('../utils/tool')
 
 module.exports.findBannerService = async function () {
     const data =  handleDataPattern(await findBannerDao())
-    return formatResponse(200, 'ok', data)
+    return formatResponse( data)
 }
 module.exports.updateBannerService = async function (bannerArr) {
   const data = await updateBannerDao(bannerArr)

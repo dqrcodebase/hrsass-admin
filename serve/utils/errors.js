@@ -32,7 +32,7 @@ class ServiceError extends Error {
   // 方法
   // 将错误信息转换为JSON格式
   toResponseJSON() {
-    return formatResponse(this.code, this.message,'',false);
+    return formatResponse('',this.code, this.message,false);
   }
 }
 
