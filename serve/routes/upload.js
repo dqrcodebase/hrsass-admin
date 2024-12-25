@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-12-11 21:55:18
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-25 20:57:28
+ * @LastEditTime: 2024-12-25 21:03:46
  * @FilePath: /hrsass-admin/serve/routes/upload.js
  * @Description: 
  * 
@@ -19,7 +19,7 @@
         next(new UploadError("上传文件失败，请检查文件的大小，控制在 2MB 以内"));
     } else {
         const path = "/static/uploads/" + req.file.filename;
-        res.send(formatResponse(0, "", path));
+        res.send(formatResponse(path));
     }
     })
   })

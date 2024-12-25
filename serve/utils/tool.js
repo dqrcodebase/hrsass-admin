@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-27 22:23:53
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-25 21:02:00
+ * @LastEditTime: 2024-12-25 21:03:11
  * @FilePath: /hrsass-admin/serve/utils/tool.js
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 
-const formatResponse = function ( data = null,code = 200, msg = 'ok',successfully = true) {
+const formatResponse = function (data = null, code = 200, msg = 'ok', successfully = true) {
   return {
     code: code.toString(),
     data,
@@ -19,9 +19,9 @@ const formatResponse = function ( data = null,code = 200, msg = 'ok',successfull
   }
 }
 module.exports.formatResponse = formatResponse
-module.exports.formatResponseList = function ( code = 200, msg = 'ok',data,count,successfully = true) {
+module.exports.formatResponseList = function (data, count, code = 200, msg = 'ok', successfully = true) {
   const result = {
-    ...formatResponse(data,code,msg,successfully),
+    ...formatResponse(data, code, msg, successfully),
     data: {
       content: data,
       totalElements: count
@@ -43,7 +43,7 @@ module.exports.analysisToken = function (token) {
 // 处理数据类型响应数据
 module.exports.handleDataPattern = function (data) {
   const arr = []
-  for(const key in data){
+  for (const key in data) {
     arr.push(data[key])
   }
   return arr
