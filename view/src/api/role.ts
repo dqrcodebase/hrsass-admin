@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-21 22:16:31
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-03 16:56:03
+ * @LastEditTime: 2025-01-06 15:03:18
  * @FilePath: /hrsass-admin/view/src/api/role.ts
  * @Description: 
  * 
@@ -18,7 +18,7 @@ enum Api {
 }
 // 新增角色
 export const addRoleApi = async (params: RoleParams) => {
-  return await $post('/api/role/add', params)
+  return await $post(Api.roleAdd, params)
 }
 
 // page给一个默认值1，limit给一个默认值10
@@ -30,6 +30,6 @@ export const updateRoleApi = async (params: RoleParams) => {
   return await $put(Api.roleUpdate, params)
 }
 
-export const removesRoleApi = async (id: Array<Number>) => {
+export const removesRoleApi = async (id: Array<number>) => {
   return await $delete(Api.roleRemoves,  id)
 }

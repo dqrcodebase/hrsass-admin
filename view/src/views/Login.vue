@@ -38,10 +38,10 @@
           >
 
           <template #suffix>
-            <div class="cursor-pointer" v-if="isPassword === true" @click="isPassword = false">
+            <div v-if="isPassword === true" class="cursor-pointer" @click="isPassword = false">
               <el-icon><View /></el-icon>
             </div>
-            <div class="cursor-pointer" v-else @click="isPassword = true">
+            <div v-else class="cursor-pointer" @click="isPassword = true">
               <el-icon><Hide /></el-icon>
             </div>
           </template>
@@ -99,7 +99,7 @@ function submitForm(formEl: FormInstance | undefined) {
   if (!formEl) return
   formEl.validate(async (valid) => {
     if (valid) {
-      await userStore.login(formData).catch((err) => {
+      await userStore.login(formData).catch(() => {
         getCaptcha()
       })
     } else {

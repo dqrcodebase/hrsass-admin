@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-09 16:58:11
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-28 15:28:49
+ * @LastEditTime: 2025-01-06 14:53:55
  * @FilePath: /hrsass-admin/view/src/App.vue
  * @Description: 
  * 
@@ -17,10 +17,7 @@
 import {useUserStore} from '@/store/modules/user'
 const userStore = useUserStore()
 if(sessionStorage.getItem('user')){
-  let user = JSON.parse(sessionStorage.getItem('user') as string)
+  const user = JSON.parse(sessionStorage.getItem('user') as string)
   userStore.setUser(user)
 }
-
-
-
 </script>

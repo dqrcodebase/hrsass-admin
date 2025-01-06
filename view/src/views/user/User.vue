@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-12-03 21:40:20
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-04 10:31:38
+ * @LastEditTime: 2025-01-06 15:17:27
  * @FilePath: /hrsass-admin/view/src/views/user/User.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
   <div class="h-full">
     <div class="h-full flex flex-col">
       <div>
-        <el-button @click="handleAdd" type="primary">添加</el-button>
+        <el-button type="primary" @click="handleAdd">添加</el-button>
       </div>
       <el-table size="small" :data="roles" class="flex-1">
         <el-table-column prop="userName" label="账号" width="180" />
@@ -52,7 +52,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         >
-          <template v-slot:default>
+          <template #default>
             <div>ddd</div>
           </template>
         </el-pagination>
@@ -61,7 +61,7 @@
     <EditUserDrawer
       v-model:drawer="drawer"
       :info="formData"
-      @onSuccess="onSuccess"
+      @on-success="onSuccess"
     />
   </div>
 </template>
@@ -72,7 +72,7 @@ import { getUserListApi, removesUserApi } from '@/api/user'
 import { UserParams } from '@/api/model/userModel'
 import EditUserDrawer from './components/EditUserDrawer.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-let roles = ref([])
+const roles = ref([])
 
 const pagination = ref({
   currentPage: 1,
@@ -112,13 +112,13 @@ function handleCurrentChange(val: number) {
   getUserList()
 }
 // 编辑
-function handleEdit(index: number, row: any) {
+function handleEdit(index: number, row: UserParams) {
   formData.value = { ...row }
   drawer.value = true
   console.log(index, row)
 }
 // 删除
-function handleDelete(index: number, row: any) {
+function handleDelete(index: number, row: UserParams) {
   console.log(index, row)
   ElMessageBox.confirm('是否删除该角色?', 'Warning', {
     confirmButtonText: '确定',

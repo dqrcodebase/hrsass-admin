@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-18 20:21:49
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-02 14:37:39
+ * @LastEditTime: 2025-01-06 15:23:08
  * @FilePath: /hrsass-admin/view/src/api/admin.ts
  * @Description: 
  * 
@@ -21,6 +21,5 @@ export async function loginApi(params: LoginParams) {
 };
 
 export async function getUserInfoApi(){
-  let res = await $get(Api.getUserInfo)
-  return res
+  return await $get(Api.getUserInfo)
 }

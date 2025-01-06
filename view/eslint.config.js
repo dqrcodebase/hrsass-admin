@@ -33,12 +33,13 @@ export default typescriptEslint.config(
     },
     rules: {
       "vue/multi-word-component-names": "off",
-      "no-unused-vars": [
-        "error",
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
         {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_"
-        }
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
       ],
     },
   },

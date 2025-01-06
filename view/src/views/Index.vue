@@ -103,7 +103,6 @@ import { onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import en from "element-plus/es/locale/lang/en";
-import InternationalIcon from '@/assets/icons/internationalIcon.svg'
 
 import {
   ChatDotRound,

@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-18 20:15:48
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-03 16:27:24
+ * @LastEditTime: 2025-01-06 15:28:07
  * @FilePath: /hrsass-admin/view/src/utils/request.ts
  * @Description: 
  * 
@@ -48,22 +48,22 @@ instance.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-export const $get = async (url: string, params?: any) => {
-  let { data } = await instance.get(url, { params })
+export const $get = async (url: string, params?: unknown) => {
+  const { data } = await instance.get(url, { params })
   return data
 }
 
-export const $post = async (url: string, params?: any) => {
-  let { data } = await instance.post(url, params)
+export const $post = async (url: string, params?: unknown) => {
+  const { data } = await instance.post(url, params)
   return data
 }
 
-export const $put = async (url: string, params?: any) => {
-  let { data } = await instance.put(url, params)
+export const $put = async (url: string, params?: unknown) => {
+  const { data } = await instance.put(url, params)
   return data
 }
 
-export const $delete = async (url: string, params?: any) => {
-  let { data } = await instance.delete(url, { data: params })
+export const $delete = async (url: string, params?: unknown) => {
+  const { data } = await instance.delete(url, { data: params })
   return data
 }

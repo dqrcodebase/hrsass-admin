@@ -82,7 +82,7 @@ router.beforeEach((to, from, next) => {
   NProgress.start();
 })
 
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   console.log("🚀 ~ router.afterEach ~ to:", to)
   NProgress.done();
   if (to.meta && to.meta.title) {

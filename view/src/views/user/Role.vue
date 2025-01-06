@@ -1,8 +1,17 @@
 <!--
  * @Author: dqr
+ * @Date: 2024-12-05 16:52:08
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2025-01-06 15:29:20
+ * @FilePath: /hrsass-admin/view/src/views/user/Role.vue
+ * @Description: 
+ * 
+-->
+<!--
+ * @Author: dqr
  * @Date: 2024-11-21 22:17:13
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-03 16:31:24
+ * @LastEditTime: 2025-01-06 15:29:05
  * @FilePath: /hrsass-admin/view/src/views/user/Role.vue
  * @Description: 
  * 
@@ -11,7 +20,7 @@
   <div class="h-full">
     <div class="h-full flex flex-col">
       <div>
-        <el-button @click="handleAdd" type="primary">添加</el-button>
+        <el-button type="primary" @click="handleAdd">添加</el-button>
       </div>
       <el-table size="small" :data="roles" class="flex-1">
         <el-table-column prop="roleCode" label="编号" width="180" />
@@ -45,7 +54,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       >
-      <template v-slot:default>
+      <template #default>
         <div>ddd</div>
       </template>
       </el-pagination>
@@ -55,7 +64,7 @@
     <EditRoleDrawer
      v-model:drawer="drawer"
       :info="formData"
-      @onSuccess="onSuccess"
+      @on-success="onSuccess"
     />
   </div>
 </template>
@@ -66,7 +75,7 @@ import { getRoleListApi ,removesRoleApi} from '@/api/role'
 import { RoleParams } from '@/api/model/roleModel'
 import EditRoleDrawer from './components/EditRoleDrawer.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-let roles = ref([])
+const roles = ref([])
 
 const pagination = ref({
   currentPage: 1,
@@ -102,13 +111,13 @@ function handleCurrentChange(val: number) {
   getRoleList()
 }
 // 编辑
-function handleEdit(index: number, row: any) {
+function handleEdit(index: number, row: RoleParams) {
   formData.value = {...row}
   drawer.value = true
   console.log(index, row)
 }
 // 删除
- function handleDelete(index: number, row: any) {
+ function handleDelete(index: number, row: RoleParams) {
   console.log(index, row)
   ElMessageBox.confirm(
     '是否删除该角色?',
