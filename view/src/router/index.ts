@@ -2,7 +2,7 @@
  * @Author: dqr
  * @Date: 2024-11-12 22:02:59
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-04 09:06:42
+ * @LastEditTime: 2025-01-07 10:06:34
  * @FilePath: /hrsass-admin/view/src/router/index.ts
  * @Description: 
  * 
@@ -12,8 +12,9 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { getToken } from '@/utils/auth'
 import { useUserWithOut } from '@/store/modules/user'
+import { type Router } from 'vue-router'
 
-const router = createRouter({
+const router: Router = createRouter({
   history: createWebHistory(),
   routes: [
     {
@@ -41,17 +42,17 @@ const router = createRouter({
         {
           path: '/mail',
           meta: { title: '邮件' },
-          component: () => import('@/views/Mail.vue')
+          component: () => import('@/views/demo/mail/Mail.vue')
         },
         {
           path: '/role',
           meta: { title: '角色管理' },
-          component: () => import('@/views/user/Role.vue')
+          component: () => import('@/views/demo/user/Role.vue')
         },
         {
           path: '/user',
           meta: { title: '用户管理' },
-          component: () => import('@/views/user/User.vue')
+          component: () => import('@/views/demo/user/User.vue')
         }
       ]
     },
@@ -71,7 +72,7 @@ router.beforeEach((to, from, next) => {
     const userStore = useUserWithOut();
     userStore.getUserInfo();
 
-  }else {
+  } else {
     if (to.path === '/login') {
       next();
     } else {
