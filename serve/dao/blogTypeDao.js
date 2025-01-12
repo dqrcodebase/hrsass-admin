@@ -13,8 +13,8 @@ module.exports.findAllBlogTypeDao = async function(){
 
 // 获取其中一个博客分类
 module.exports.findOneBlogTypeDao = async function(id){
-    const {dataValues} = await blogTypeModel.findByPk(id);
-    return dataValues;
+    const data = await blogTypeModel.findByPk(id);
+    return data;
 }
 
 // 修改一个博客分类
@@ -36,4 +36,12 @@ module.exports.deleteBlogTypeDao = async function(id){
             id
         }
     });
+}
+
+// 根据 id 新增对应博客分类的文章数量
+module.exports.addBlogToType = async function(id){
+    const data = await blogTypeModel.findByPk(id);
+    data.articleCount++;
+    await data.save();
+    return;
 }

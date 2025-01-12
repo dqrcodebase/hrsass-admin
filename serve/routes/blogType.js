@@ -1,3 +1,12 @@
+/*
+ * @Author: dqr
+ * @Date: 2025-01-02 22:27:54
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2025-01-12 21:47:32
+ * @FilePath: /hrsass-admin/serve/routes/blogType.js
+ * @Description: 
+ * 
+ */
 var express = require("express");
 const { addBlogTypeService, findAllBlogTypeService, findOneBlogTypeService, updateBlogTypeService, deleteBlogTypeService } = require("../service/blogTypeService");
 var router = express.Router();

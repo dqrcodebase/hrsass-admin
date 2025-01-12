@@ -1,3 +1,12 @@
+/*
+ * @Author: dqr
+ * @Date: 2025-01-02 22:28:03
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2025-01-12 21:48:41
+ * @FilePath: /hrsass-admin/serve/service/blogTypeService.js
+ * @Description: 
+ * 
+ */
 const { validate } = require("validate.js");
 const { addBlogTypeDao, findAllBlogTypeDao, findOneBlogTypeDao, deleteBlogTypeDao, updateBlogTypeDao } = require("../dao/blogTypeDao");
 const { ValidationError } = require("../utils/errors");
@@ -43,7 +52,8 @@ module.exports.findAllBlogTypeService = async function () {
 
 // 获取其中一个博客分类
 module.exports.findOneBlogTypeService = async function (id) {
-    return formatResponse(0, "", await findOneBlogTypeDao(id));
+    const {dataValues} = await findOneBlogTypeDao(id)
+    return formatResponse(0, "", dataValues);
 }
 
 
@@ -57,6 +67,6 @@ module.exports.updateBlogTypeService = async function (id, blogInfo) {
 // 删除其中一个博客分类
 module.exports.deleteBlogTypeService = async function (id) {
     await deleteBlogTypeDao(id);
-    // 这里需要返回受影响的文章的数据，写了文章模块后再回来修改
+    // 这里需要返回受影响的文章的数量，写了文章模块后再回来修改
     return formatResponse(0, "", true);
 }
