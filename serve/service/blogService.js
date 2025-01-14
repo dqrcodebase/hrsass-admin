@@ -1,9 +1,18 @@
+/*
+ * @Author: dqr
+ * @Date: 2025-01-04 19:56:32
+ * @LastEditors: D Q R 852601818@qq.com
+ * @LastEditTime: 2025-01-14 14:42:59
+ * @FilePath: /hrsass-admin/serve/service/blogService.js
+ * @Description: 
+ * 
+ */
 const { validate } = require("validate.js");
 const { addBlogDao, findBlogByPageDao, findBlogByIdDao, updateBlogDao, deleteBlogDao } = require("../dao/blogDao");
 const { addBlogToType, findOneBlogTypeDao } = require("../dao/blogTypeDao");
 const blogTypeModel = require("../dao/model/blogTypeModel");
 const { ValidationError } = require("../utils/errors");
-const { formatResponse, handleDataPattern } = require("../utils/tool");
+const { formatResponse, handleDataPattern,handleTOC } = require("../utils/tool");
 
 // 扩展验证规则
 validate.validators.categoryIdIsExist = async function (value) {
@@ -18,7 +27,8 @@ validate.validators.categoryIdIsExist = async function (value) {
 module.exports.addBlogService = async function (newBlogInfo) {
 
     // 首先第一个要处理的就是 TOC
-
+    // 经过 handleTOC 函数进行处理之后，现在 newBlogInfo 里面的 TOC 目录就是我们想要的格式
+    newBlogInfo = handleTOC(newBlogInfo);
     // 接下来，我们将处理好的TOC格式转为字符串
     newBlogInfo.toc = JSON.stringify('["a":"b"]');
 
