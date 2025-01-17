@@ -1,19 +1,11 @@
-<!--
- * @Author: dqr
- * @Date: 2024-12-03 15:35:49
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-04 09:07:59
- * @FilePath: /hrsass-admin/view/src/views/user/components/EditUserDrawer.vue
- * @Description: 
- * 
--->
+
 <template>
   <el-drawer v-model="drawer" title="添加用户" :close-on-click-modal="false">
     <el-form
+      ref="ruleFormRef"
       label-width="auto"
       :model="formData"
       style="max-width: 600px"
-      ref="ruleFormRef"
       :rules="rules"
       @close="onClose"
     >

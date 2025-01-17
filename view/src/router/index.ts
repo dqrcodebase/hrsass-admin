@@ -1,63 +1,15 @@
-/*
- * @Author: dqr
- * @Date: 2024-11-12 22:02:59
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2025-01-07 10:06:34
- * @FilePath: /hrsass-admin/view/src/router/index.ts
- * @Description: 
- * 
- */
 import { createRouter, createWebHistory } from "vue-router";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { getToken } from '@/utils/auth'
 import { useUserWithOut } from '@/store/modules/user'
 import { type Router } from 'vue-router'
+import { basicRoutes } from './basicRoutes'
+import { RouteRecordRaw } from 'vue-router'
 
 const router: Router = createRouter({
   history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      component: () => import('@/views/Index.vue'),
-      meta: { title: '首页' },
-    },
-    {
-      path: '/index',
-      redirect: '/'
-    },
-    {
-      path: '/login',
-      component: () => import('@/views/Login.vue')
-    },
-    {
-      path: '/index',
-      component: () => import('@/views/Index.vue'),
-      children: [
-        {
-          path: '',
-          meta: { title: '首页' },
-          component: () => import('@/views/Home.vue')
-        },
-        {
-          path: '/mail',
-          meta: { title: '邮件' },
-          component: () => import('@/views/demo/mail/Mail.vue')
-        },
-        {
-          path: '/role',
-          meta: { title: '角色管理' },
-          component: () => import('@/views/demo/user/Role.vue')
-        },
-        {
-          path: '/user',
-          meta: { title: '用户管理' },
-          component: () => import('@/views/demo/user/User.vue')
-        }
-      ]
-    },
-
-  ]
+  routes: basicRoutes as RouteRecordRaw[]
 });
 
 router.beforeEach((to, from, next) => {

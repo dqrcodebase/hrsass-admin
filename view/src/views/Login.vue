@@ -1,21 +1,4 @@
-<!--
- * @Author: dqr
- * @Date: 2024-11-25 14:21:44
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-02 10:47:45
- * @FilePath: /hrsass-admin/view/src/views/Login.vue
- * @Description: 
- * 
--->
-<!--
- * @Author: dqr
- * @Date: 2024-11-12 21:54:24
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-29 11:24:40
- * @FilePath: /hrsass-admin/view/src/views/Login.vue
- * @Description: 
- * 
--->
+
 <template>
   <div class="login">
     <div class="box flex flex-col items-center">

@@ -1,12 +1,4 @@
-/*
- * @Author: dqr
- * @Date: 2024-11-19 22:36:38
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-02 16:06:49
- * @FilePath: /hrsass-admin/view/src/store/modules/user.ts
- * @Description: 
- * 
- */
+
 import { defineStore } from 'pinia'
 import { User } from '../../../types/store'
 import { loginApi, getUserInfoApi } from '@/api/admin';

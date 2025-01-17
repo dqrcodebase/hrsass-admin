@@ -1,12 +1,4 @@
-<!--
- * @Author: dqr
- * @Date: 2024-11-12 21:54:30
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-06 16:56:48
- * @FilePath: /hrsass-admin/view/src/views/Index.vue
- * @Description: 
- * 
--->
+
 <template>
   <el-config-provider :locale="locale">
     <div class="index">

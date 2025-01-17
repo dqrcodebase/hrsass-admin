@@ -1,21 +1,4 @@
-<!--
- * @Author: dqr
- * @Date: 2024-12-05 16:52:08
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2025-01-06 15:29:20
- * @FilePath: /hrsass-admin/view/src/views/user/Role.vue
- * @Description: 
- * 
--->
-<!--
- * @Author: dqr
- * @Date: 2024-11-21 22:17:13
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2025-01-06 15:29:05
- * @FilePath: /hrsass-admin/view/src/views/user/Role.vue
- * @Description: 
- * 
--->
+
 <template>
   <div class="h-full">
     <div class="h-full flex flex-col">

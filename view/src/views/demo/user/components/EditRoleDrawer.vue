@@ -1,19 +1,11 @@
-<!--
- * @Author: dqr
- * @Date: 2024-12-03 15:35:49
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-12-03 21:42:26
- * @FilePath: /hrsass-admin/view/src/views/user/components/EditRoleDrawer.vue
- * @Description: 
- * 
--->
+
 <template>
   <el-drawer v-model="drawer" title="添加角色" :close-on-click-modal="false">
     <el-form
+      ref="ruleFormRef"
       label-width="auto"
       :model="formData"
       style="max-width: 600px"
-      ref="ruleFormRef"
       :rules="rules"
       @close="onClose"
     >
