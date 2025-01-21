@@ -12,13 +12,14 @@ import "@/styles/index.scss";
 // 引入tailwindcss 
 import '@/styles/tailwindcss.css'
 
-import router from './router'
+import {setupRouter} from './router'
 
 
 async function bootstrap() {
   const app = createApp(App)
   setupStore(app)
-  app.use(router).use(ElementPlus)
+  setupRouter(app)
+  app.use(ElementPlus)
   app.mount('#app')
 
 }

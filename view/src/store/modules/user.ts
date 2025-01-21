@@ -4,7 +4,7 @@ import { User } from '../../../types/store'
 import { loginApi, getUserInfoApi } from '@/api/admin';
 import { LoginParams } from '@/api/model/adminModel';
 import { setToken, removeToken } from '@/utils/auth'
-import router from '@/router';
+import {router} from '@/router';
 import { md5 } from 'md5js'
 import { setLocalCache, clearLocalCache, clearSessionCache, getLocalCache } from '@/utils/cache'
 
