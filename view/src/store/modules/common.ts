@@ -4,8 +4,7 @@ interface CommonState {
   language: string;
 }
 
-export const useCommonStore = defineStore({
-  id: 'common',
+export const useCommonStore = defineStore('common',{
   state: (): CommonState => ({
     language: 'zh-cn',
   }),

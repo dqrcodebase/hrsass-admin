@@ -4,7 +4,7 @@ import { User } from '../../../types/store'
 import { loginApi, getUserInfoApi } from '@/api/admin';
 import { LoginParams } from '@/api/model/adminModel';
 import { setToken, removeToken } from '@/utils/auth'
-import {router} from '@/router';
+import { router } from '@/router';
 import { md5 } from 'md5js'
 import { setLocalCache, clearLocalCache, clearSessionCache, getLocalCache } from '@/utils/cache'
 
@@ -12,8 +12,7 @@ import { setLocalCache, clearLocalCache, clearSessionCache, getLocalCache } from
 interface UserState {
   user: Nullable<User>;
 }
-export const useUserStore = defineStore({
-  id: 'user',
+export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     user: {
       loginName: '',
@@ -29,13 +28,12 @@ export const useUserStore = defineStore({
     getUser() {
       const user = getLocalCache('user');
       this.user = user;
-      return user;
     },
     clearUser() {
       removeToken();
       clearLocalCache();
       clearSessionCache();
-      this.user = { loginName: '' };
+      this.user = { };
     },
     setToken(token: string | undefined) {
       setToken(token);
@@ -54,8 +52,9 @@ export const useUserStore = defineStore({
     },
     async getUserInfo() {
       const user = getLocalCache('user');
-      if(user) {
-        return this.getUser()
+      if (user) {
+        this.getUser()
+        return 
       }
       const result = await getUserInfoApi();
       if (result.successfully) {
