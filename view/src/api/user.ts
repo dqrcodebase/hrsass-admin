@@ -7,7 +7,7 @@
  * @Description: 
  * 
  */
-import { $post,$put ,$delete} from "../utils/request";
+import { $post,$put ,$delete} from "../utils/http";
 import { PageParams } from "./model/indexModel";
 import {UserParams} from './model/userModel'
 

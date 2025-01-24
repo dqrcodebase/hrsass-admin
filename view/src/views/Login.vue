@@ -82,7 +82,8 @@ function submitForm(formEl: FormInstance | undefined) {
   if (!formEl) return
   formEl.validate(async (valid) => {
     if (valid) {
-      await userStore.login(formData).catch(() => {
+      await userStore.login(formData).catch((error) => {
+        console.log("🚀 ~ formEl.validate ~ error:3333", error)
         getCaptcha()
       })
     } else {

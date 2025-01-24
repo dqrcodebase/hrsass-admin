@@ -30,10 +30,10 @@ export const useUserStore = defineStore('user', {
       this.user = user;
     },
     clearUser() {
-      removeToken();
-      clearLocalCache();
-      clearSessionCache();
-      this.user = { };
+      this.user = {};
+    },
+    removeToken() {
+
     },
     setToken(token: string | undefined) {
       setToken(token);
@@ -45,8 +45,8 @@ export const useUserStore = defineStore('user', {
         loginPwd: md5(loginParams.loginPwd, 32)
       }
 
-      const result = await loginApi(params)
-      this.setToken(result.data.token);
+      const data = await loginApi(params)
+      this.setToken(data.token);
       this.getUserInfo();
       router.push('/');
     },
@@ -61,6 +61,15 @@ export const useUserStore = defineStore('user', {
         this.setUser(result.data as User); // Specify the type of `result.data` as `User`
       }
     },
+    logout() {
+      this.clearUser();
+      removeToken();
+      clearLocalCache();
+      clearSessionCache();
+      router.replace({
+        path: '/login',
+      })
+    }
   },
 })
 

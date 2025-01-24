@@ -7,7 +7,7 @@
  * @Description: 
  * 
  */
-import { $post,$put ,$delete} from "../utils/request";
+import { $post,$put ,$delete} from "../utils/http";
 import { PageParams } from "./model/indexModel";
 import { RoleParams } from "./model/roleModel";
 enum Api {
@@ -21,7 +21,6 @@ export const addRoleApi = async (params: RoleParams) => {
   return await $post(Api.roleAdd, params)
 }
 
-// page给一个默认值1，limit给一个默认值10
 export const getRoleListApi = async ({ page = 0, limit = 20 }: PageParams) => {
   return await $post(`${Api.roleList}/${page}/${limit}`)
 }

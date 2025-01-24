@@ -7,7 +7,7 @@
  * @Description: 
  * 
  */
-import { $post } from "@/utils/request";
+import { $post } from "@/utils/http";
 
 enum Api {
   captcha = '/api/captcha'

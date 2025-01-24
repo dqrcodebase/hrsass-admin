@@ -1,11 +1,5 @@
-/*
- * @Author: dqr
- * @Date: 2024-11-26 15:54:43
- * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2024-11-26 16:17:44
- * @FilePath: /hrsass-admin/view/types/global.d.ts
- * @Description: 
- * 
+/**
+ * 全局类型声明，无需引入直接在 `.vue` 、`.ts` 、`.tsx` 文件使用即可获得类型提示
  */
 
 declare type Nullable<T> = T | null;

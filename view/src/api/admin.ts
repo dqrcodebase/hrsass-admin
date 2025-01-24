@@ -2,12 +2,12 @@
  * @Author: dqr
  * @Date: 2024-11-18 20:21:49
  * @LastEditors: D Q R 852601818@qq.com
- * @LastEditTime: 2025-01-06 15:23:08
+ * @LastEditTime: 2025-01-24 16:46:07
  * @FilePath: /hrsass-admin/view/src/api/admin.ts
  * @Description: 
  * 
  */
-import { $post, $get } from "@/utils/request";
+import { $post, $get } from "@/utils/http";
 import { LoginParams } from './model/adminModel'
 
 enum Api {
